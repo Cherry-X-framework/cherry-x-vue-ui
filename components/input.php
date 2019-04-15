@@ -1,0 +1,40 @@
+<div class="cx-vui-component" v-if="isVisible()">
+	<div
+		class="cx-vui-component__meta"
+		v-if="this.label || this.description"
+	>
+		<label
+			class="cx-vui-component__label"
+			v-if="this.label"
+			:for="currentId"
+			v-html="this.label"
+		></label>
+		<div
+			class="cx-vui-component__desc"
+			v-if="this.description"
+			v-html="this.description"
+		></div>
+	</div>
+	<div class="cx-vui-component__control">
+		<input
+			:id="currentId"
+			:type="type"
+			:class="classesList"
+			:placeholder="placeholder"
+			:disabled="disabled"
+			:maxlength="maxlength"
+			:readonly="readonly"
+			:name="name"
+			:value="currentValue"
+			:autofocus="autofocus"
+			@keyup.enter="handleEnter"
+			@keyup="handleKeyup"
+			@keypress="handleKeypress"
+			@keydown="handleKeydown"
+			@focus="handleFocus"
+			@blur="handleBlur"
+			@input="handleInput"
+			@change="handleChange"
+		>
+	</div>
+</div>
