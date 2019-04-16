@@ -1,9 +1,11 @@
-import { oneOf } from '../utils/assist';
+import { oneOf } from '../../utils/assist';
+import { checkConditions } from '../../mixins/check-conditions';
 
 const Input = {
 
 	name: 'cx-vui-input',
 	template: '#cx-vui-input',
+	mixins: [ checkConditions ],
 	props: {
 		type: {
 			validator ( value ) {
@@ -17,7 +19,7 @@ const Input = {
 		},
 		size: {
 			validator (value) {
-				return oneOf( value, ['small', 'large', 'default'] );
+				return oneOf( value, [ 'small', 'large', 'default', 'fullwidth' ] );
 			},
 			default: 'default'
 		},
@@ -52,18 +54,29 @@ const Input = {
 		elementId: {
 			type: String
 		},
+		conditions: {
+			type: Array,
+			default: function() {
+				return [];
+			}
+		},
+		// Wrapper related props (should be passed into wrapper component)
+		preventWrap: {
+			type: Boolean,
+			default: false
+		},
 		label: {
 			type: String
 		},
 		description: {
 			type: String
 		},
-		conditions: {
+		wrapperCss: {
 			type: Array,
 			default: function() {
 				return [];
 			}
-		}
+		},
 	},
 	data() {
 		return {
@@ -82,36 +95,11 @@ const Input = {
 		}
 	},
 	methods: {
-		isVisible() {
+		controlClasses() {
 
-			if ( ! this.conditions.length ) {
-				return true
-			} else {
+			var classesList = [ 'cx-vui-input' ]
 
-				let conditionsMet = [];
-
-				for ( var i = 0; i < this.conditions.length; i++) {
-					switch ( this.conditions[ i ].operator ) {
-						case 'equal':
-
-							if ( this.conditions[ i ].var === this.conditions[ i ].value ) {
-								conditionsMet.push( this.conditions[ i ].value );
-							}
-
-							break;
-					}
-				};
-
-				return conditionsMet.length === this.conditions.length;
-
-			}
-
-		},
-		classesList() {
-
-			let classesList = [ 'cx-vui-component__input' ]
-
-			classesList.push( 'cx-vui-component--' + this.size );
+			classesList.push( 'size-' + this.size );
 
 			return classesList;
 		},

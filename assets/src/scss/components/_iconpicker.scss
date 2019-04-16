@@ -1,0 +1,39 @@
+.cx-vui-iconpicker {
+	&__fieldgroup {
+		display: flex;
+	}
+	&__input {
+		flex: 1 0 auto;
+	}
+	&__preview {
+		width: 32px;
+		height: 32px;
+		flex:  0 0 32px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: $color__bg-input;
+		border-radius: 4px;
+		margin: 0 5px 0 0;
+	}
+	&__canvas {
+		padding: 20px;
+		&-list {
+			display: flex;
+			flex-wrap: wrap;
+			margin: 0 -3px;
+		}
+		&-icon {
+			width: 32px;
+			height: 32px;
+			margin: 3px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			&:focus {
+				box-shadow: 0 0 0 2px $color__accent-border;
+			}
+		}
+	}
+}

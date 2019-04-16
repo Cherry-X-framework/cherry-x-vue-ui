@@ -98,6 +98,13 @@ if ( ! class_exists( 'CX_Vue_UI' ) ) {
 
 			add_action( 'admin_footer', array( $this, 'print_templates' ), 0 );
 
+			wp_enqueue_style(
+				'cx-vue-ui',
+				$this->url . 'assets/css/cx-vue-ui.css',
+				array(),
+				$this->version
+			);
+
 		}
 
 		/**
@@ -107,11 +114,18 @@ if ( ! class_exists( 'CX_Vue_UI' ) ) {
 		 */
 		public function components_list() {
 			return apply_filters( 'cx-vue-ui/components-list', array(
+
 				// Layout elements
 				'title',
 				'collapse',
+				'component-wrapper',
+
 				// Form elements
 				'input',
+				'switcher',
+				'iconpicker',
+				'fselect',
+
 			) );
 		}
 

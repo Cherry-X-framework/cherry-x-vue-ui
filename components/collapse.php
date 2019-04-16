@@ -1,9 +1,9 @@
-<div :class="[ 'cx-vui-collapse', 'cx-vui-collapse--' + this.state ]">
+<div :class="{ 'cx-vui-collapse': true, 'cx-vui-collapse--collapsed': 'collapsed' === this.state }">
 	<div
 		class="cx-vui-collapse__heading"
 		@click="switchState"
 	>
-		<span :class="[ 'dashicons', this.iconArrow ]"></span>
+		<span :class="[ 'cx-vui-collapse__heading-icon', 'dashicons', this.iconArrow ]"></span>
 		<slot name="title"></slot>
 	</div>
 	<div class="cx-vui-collapse__content">
