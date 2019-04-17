@@ -24,6 +24,7 @@
 				:class="[ 'cx-vui-iconpicker__input', 'cx-vui-input' ]"
 				:placeholder="placeholder"
 				:disabled="disabled"
+				:autocomplete="autocomplete"
 				:readonly="readonly"
 				:name="name"
 				:value="currentValue"
@@ -48,7 +49,7 @@
 			<div class="cx-vui-iconpicker__canvas-list">
 				<div
 					tabindex="0"
-					v-for="icon in filteredIcons( icons )"
+					v-for="icon in filteredIcons"
 					:class="{
 						'cx-vui-iconpicker__canvas-icon': true,
 						'cx-vui-iconpicker__canvas-icon--selected': iconPrefix + icon === currentValue,

@@ -124,7 +124,8 @@ if ( ! class_exists( 'CX_Vue_UI' ) ) {
 				'input',
 				'switcher',
 				'iconpicker',
-				'fselect',
+				'select',
+				'f-select',
 
 			) );
 		}

@@ -19,6 +19,6 @@
 		<slot></slot>
 	</div>
 </div>
-<div class="cx-vui-component--clean" v-else>
+<div class="cx-vui-component-raw" v-else>
 	<slot></slot>
 </div>

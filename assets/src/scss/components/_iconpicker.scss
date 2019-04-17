@@ -1,4 +1,5 @@
 .cx-vui-iconpicker {
+	position: relative;
 	&__fieldgroup {
 		display: flex;
 	}
@@ -17,22 +18,49 @@
 		margin: 0 5px 0 0;
 	}
 	&__canvas {
-		padding: 20px;
+		position: absolute;
+		top: 100%;
+		margin: 20px 0 0 0;
+		padding: 10px;
+		box-shadow: 0px 4px 20px rgba(35, 40, 45, 0.24);
+		border-radius: 4px;
+		border: 1px solid $color__accent-border;
+		background: $color__bg-panel;
+		z-index: 999;
 		&-list {
 			display: flex;
 			flex-wrap: wrap;
-			margin: 0 -3px;
+			margin: 6px -3px;
 		}
 		&-icon {
-			width: 32px;
-			height: 32px;
-			margin: 3px;
+			width: 48px;
+			height: 48px;
+			margin: 4px;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			cursor: pointer;
+			box-sizing: border-box;
+			border-radius: 4px;
+			border: 1px solid $color__border-in-panel;
+			transition: all 150ms linear;
+			i {
+				color: $color__text;
+			}
+			&--selected {
+				border-color: $color__accent-border;
+				background: $color__accent-lighter;
+				i {
+					color: $color__accent;
+				}
+			}
+			&:hover,
 			&:focus {
-				box-shadow: 0 0 0 2px $color__accent-border;
+				background: $color__accent;
+				border-color: $color__accent;
+				i {
+					color: #fff;
+				}
 			}
 		}
 	}

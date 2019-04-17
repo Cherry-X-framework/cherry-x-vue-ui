@@ -41,6 +41,12 @@ const Iconpicker = {
 		elementId: {
 			type: String
 		},
+		autocomplete: {
+			validator (value) {
+				return oneOf(value, ['on', 'off']);
+			},
+			default: 'off'
+		},
 		conditions: {
 			type: Array,
 			default: function() {
@@ -97,6 +103,17 @@ const Iconpicker = {
 			this.currentId = 'cx_' + this.name;
 		}
 	},
+	computed: {
+		filteredIcons() {
+			if ( ! this.filterQuery ) {
+				return this.icons;
+			} else {
+				return this.icons.filter( icon => {
+					return this.icon.includes( this.filterQuery );
+				});
+			}
+		},
+	},
 	methods: {
 		handleEnter( event ) {
 			this.$emit( 'on-enter', event );
@@ -134,15 +151,6 @@ const Iconpicker = {
 		},
 		handleChange ( event ) {
 			this.$emit( 'on-input-change', event );
-		},
-		filteredIcons( icons ) {
-			if ( ! this.filterQuery ) {
-				return icons;
-			} else {
-				return icons.filter( icon => {
-					return icon.includes( this.filterQuery );
-				});
-			}
 		},
 		setCurrentValue ( value ) {
 
