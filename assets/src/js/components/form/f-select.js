@@ -70,9 +70,9 @@ const FilterableSelect = {
 		},
 		notFoundMeassge: {
 			type: String,
-			default: 'There is no items find mathing these query'
+			default: 'There is no items find mathing this query'
 		},
-		loadingMeassge: {
+		loadingMessage: {
 			type: String,
 			default: 'Loading...'
 		},
@@ -99,13 +99,17 @@ const FilterableSelect = {
 			options: this.optionsList,
 			currentValues: this.value,
 			currentId: this.elementId,
+			selectedOptions: [],
 			query: '',
 			inFocus: false,
+			optionInFocus: false,
+			loading: false,
+			loaded: false,
 		};
 	},
 	watch: {
 		value( val ) {
-			this.storeCurrentValues( val );
+			this.storeValues( val );
 		},
 		optionsList( options ) {
 			this.setOptions( options );
@@ -114,8 +118,11 @@ const FilterableSelect = {
 	created() {
 		if ( ! this.currentValues ) {
 			this.currentValues = [];
-		} else if ( 'object' !== typeof this.currentValues || ! this.currentValues.isArray() ) {
-			this.currentValues = [ this.currentValues ];
+		} else if ( 'object' !== typeof this.currentValues ) {
+			if ( '[object Array]' === Object.prototype.toString.call( this.currentValues ) ) {
+			} else {
+				this.currentValues = [ this.currentValues ];
+			}
 		}
 
 	},
@@ -125,19 +132,23 @@ const FilterableSelect = {
 			this.currentId = 'cx_' + this.name;
 		}
 
-		if ( this.remote && this.remoteCallback ) {
+		if ( this.remote && this.remoteCallback && this.currentValues.length ) {
 
-			const promise = this.remoteCallback();
+				this.loading = true;
 
-			if ( promise && promise.then ) {
-				promise.then( options => {
-					if ( options ) {
-						this.options = options;
-					}
-				} );
+				const promise = this.remoteCallback( this.query, this.currentValues );
+
+				if ( promise && promise.then ) {
+					promise.then( options => {
+						if ( options ) {
+							this.selectedOptions = options;
+							this.loaded  = true;
+							this.loading = false;
+						}
+					} );
+				}
+
 			}
-
-		}
 
 	},
 	computed: {
@@ -146,48 +157,165 @@ const FilterableSelect = {
 				return this.options;
 			} else {
 				return this.options.filter( option => {
-					return option.label.includes( this.query ) || option.value.includes( this.query );
+					if ( this.remote ) {
+						return true;
+					} else {
+						return option.label.includes( this.query ) || option.value.includes( this.query );
+					}
 				});
 			}
 		},
-		selectedOptions() {
-			return this.options.filter( option => {
-				return oneOf( option.value, this.currentValues );
-			});
-		}
+		parsedRemoteTriggerMessage() {
+			return this.remoteTriggerMessage.replace( /\%d/g, this.charsDiff );
+		},
+		charsDiff() {
+
+			let queryLength = 0;
+
+			if ( this.query ) {
+				queryLength = this.query.length
+			}
+
+			return this.remoteTrigger - queryLength;
+		},
 	},
 	methods: {
-		handleFocus ( event ) {
+		handleFocus( event ) {
 			this.inFocus = true;
 			this.$emit( 'on-focus', event );
 		},
-		onClickOutside ( event ) {
+		handleOptionsNav( event ) {
+
+			// next
+			if ( 'ArrowUp' === event.key || 'Tab' === event.key ) {
+				this.navigateOptions( -1 );
+			}
+			// prev
+			if ( 'ArrowDown' === event.key ) {
+				this.navigateOptions( 1 );
+			}
+
+		},
+		navigateOptions( direction ) {
+
+			if ( false === this.optionInFocus ) {
+				this.optionInFocus = -1;
+			}
+
+			let index     = this.optionInFocus + direction;
+			let maxLength = this.options.length - 1;
+
+			if ( maxLength < 0 ) {
+				maxLength = 0;
+			}
+
+			if ( index < 0 ) {
+				index = 0;
+			} else if ( index > maxLength ) {
+				index = maxLength;
+			}
+
+			this.optionInFocus = index;
+
+		},
+		onClickOutside( event ) {
 
 			this.inFocus = false;
-			this.query   = '';
-
 			this.$emit( 'on-blur', event );
+
 		},
-		handleInput() {
+		handleInput( event ) {
+
+			let value = event.target.value;
+
+			this.query = value;
+
 			this.$emit( 'input', this.currentValues );
 			this.$emit( 'on-change', event );
+
+			if ( ! this.inFocus ) {
+				this.inFocus = true;
+			}
+
+			if ( this.remote && this.remoteCallback && this.charsDiff <= 0 && ! this.loading && ! this.loaded ) {
+
+				this.loading = true;
+
+				const promise = this.remoteCallback( this.query, [] );
+
+				if ( promise && promise.then ) {
+					promise.then( options => {
+						if ( options ) {
+							this.options = options;
+							this.loaded  = true;
+							this.loading = false;
+						}
+					} );
+				}
+
+			} else if ( this.remote && this.remoteCallback && this.loaded && this.charsDiff > 0 ) {
+				this.resetRemoteOptions();
+			}
+
+		},
+		handleEnter() {
+
+			if ( false === this.optionInFocus || ! this.options[ this.optionInFocus ] ) {
+				return;
+			}
+
+			let value = this.options[ this.optionInFocus ].value;
+
+			this.handleResultClick( value );
+
 		},
 		handleResultClick( value ) {
 
 			if ( oneOf( value, this.currentValues ) ) {
-				this.currentValues.splice( this.currentValues.indexOf( value ), 1 );
+				this.removeValue( value );
 			} else {
-				this.storeCurrentValues( value );
+				this.storeValues( value );
 			}
 
 			this.$emit( 'input', this.currentValues );
 			this.$emit( 'on-change', this.currentValues );
 
-			this.inFocus = false;
-			this.query   = '';
+			this.inFocus       = false;
+			this.optionInFocus = false;
+			this.query         = '';
+
+			if ( this.remote && this.remoteCallback && this.loaded ) {
+				this.resetRemoteOptions();
+			}
 
 		},
-		storeCurrentValues( value ) {
+		resetRemoteOptions() {
+			this.options = [];
+			this.loaded  = false;
+		},
+		removeValue( value ) {
+			this.currentValues.splice( this.currentValues.indexOf( value ), 1 );
+			this.removeFromSelected( value );
+		},
+		removeFromSelected( value ) {
+			this.selectedOptions.forEach( ( option, index ) => {
+				if ( option.value === value ) {
+					this.selectedOptions.splice( index, 1 );
+				}
+			} );
+		},
+		pushToSelected( value, single ) {
+			this.options.forEach( option => {
+				if ( option.value === value ) {
+					if ( ! single ) {
+						this.selectedOptions.push( option );
+					} else {
+						this.selectedOptions = [ option ];
+					}
+				}
+			} );
+		},
+		storeValues( value ) {
 
 			if ( this.multiple ) {
 
@@ -198,23 +326,37 @@ const FilterableSelect = {
 				if ( 'object' === typeof value ) {
 					if ( '[object Array]' === Object.prototype.toString.call( value ) ) {
 						this.currentValues.concat( value );
+
+						value.forEach( singleVal => {
+							this.pushToSelected( singleVal );
+						} );
+
 					} else {
 						this.currentValues.push( value );
+						this.pushToSelected( value );
 					}
 				} else {
 					this.currentValues.push( value );
+					this.pushToSelected( value );
 				}
 
 			} else {
 
 				if ( 'object' === typeof value ) {
 					if ( '[object Array]' === Object.prototype.toString.call( value ) ) {
-						this.currentValues = value;
+						this.currentValues   = value;
+
+						value.forEach( singleVal => {
+							this.pushToSelected( singleVal );
+						} );
+
 					} else {
 						this.currentValues = [ value ];
+						this.pushToSelected( value );
 					}
 				} else {
 					this.currentValues = [ value ];
+					this.pushToSelected( value );
 				}
 
 			}

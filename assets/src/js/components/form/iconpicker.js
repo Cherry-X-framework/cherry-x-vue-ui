@@ -91,6 +91,7 @@ const Iconpicker = {
 			currentId: this.elementId,
 			filterQuery: '',
 			panelActive: false,
+			prefixedIcons: [],
 		};
 	},
 	watch: {
@@ -99,17 +100,23 @@ const Iconpicker = {
 		},
 	},
 	mounted() {
+
 		if ( ! this.currentId && this.name ) {
 			this.currentId = 'cx_' + this.name;
 		}
+
+		this.icons.forEach( icon => {
+			this.prefixedIcons.push( this.iconPrefix + icon )
+		} );
+
 	},
 	computed: {
 		filteredIcons() {
 			if ( ! this.filterQuery ) {
-				return this.icons;
+				return this.prefixedIcons;
 			} else {
-				return this.icons.filter( icon => {
-					return this.icon.includes( this.filterQuery );
+				return this.prefixedIcons.filter( icon => {
+					return icon.includes( this.filterQuery );
 				});
 			}
 		},
@@ -136,18 +143,22 @@ const Iconpicker = {
 		},
 		seclectIcon( icon ) {
 
-			icon = this.iconPrefix + icon;
-
 			this.$emit( 'input', icon );
 			this.setCurrentValue( icon );
 			this.$emit( 'on-change', icon );
 
+			this.closePanel();
+
 		},
 		handleInput( event ) {
+
 			let value = event.target.value;
+
+			this.filterQuery = value;
 			this.$emit( 'input', value );
 			this.setCurrentValue( value );
 			this.$emit( 'on-change', event );
+
 		},
 		handleChange ( event ) {
 			this.$emit( 'on-input-change', event );

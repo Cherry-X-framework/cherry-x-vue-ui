@@ -39,26 +39,28 @@
 			>
 		</div>
 		<div class="cx-vui-iconpicker__canvas" v-if="panelActive">
-			<div class="cx-vui-iconpicker__canvas-header">
-				<input
-					type="text"
-					class="cx-vui-iconpicker__canvas-search cx-vui-input size-fullwidth"
-					v-model="filterQuery"
-				>
-			</div>
-			<div class="cx-vui-iconpicker__canvas-list">
-				<div
-					tabindex="0"
-					v-for="icon in filteredIcons"
-					:class="{
-						'cx-vui-iconpicker__canvas-icon': true,
-						'cx-vui-iconpicker__canvas-icon--selected': iconPrefix + icon === currentValue,
-					}"
-					@click="seclectIcon( icon )"
-					@keyup.enter="seclectIcon( icon )"
-					@keyup.esc="closePanel()"
-				>
-					<i :class="[ iconBase, iconPrefix + icon ]"></i>
+			<div class="cx-vui-iconpicker__canvas-content">
+				<div class="cx-vui-iconpicker__canvas-header">
+					<input
+						type="text"
+						class="cx-vui-iconpicker__canvas-search cx-vui-input size-fullwidth"
+						v-model="filterQuery"
+					>
+				</div>
+				<div class="cx-vui-iconpicker__canvas-list">
+					<div
+						tabindex="0"
+						v-for="icon in filteredIcons"
+						:class="{
+							'cx-vui-iconpicker__canvas-icon': true,
+							'cx-vui-iconpicker__canvas-icon--selected': icon === currentValue,
+						}"
+						@click="seclectIcon( icon )"
+						@keyup.enter="seclectIcon( icon )"
+						@keyup.esc="closePanel()"
+					>
+						<i :class="[ iconBase, icon ]"></i>
+					</div>
 				</div>
 			</div>
 		</div>

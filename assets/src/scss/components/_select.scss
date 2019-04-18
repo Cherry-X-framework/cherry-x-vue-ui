@@ -1,3 +1,5 @@
-.cx-vui-select {
+// .wp-admin is required to rewrite default WP select styles
+.wp-admin .cx-vui-select {
 	@include input();
+	height: auto;
 }

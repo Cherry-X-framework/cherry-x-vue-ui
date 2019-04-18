@@ -6,6 +6,7 @@
 		&.cx-vui-input {
 			&--in-focus {
 				box-shadow: 0 0 0 2px $color__accent-border inset;
+				background: #fff;
 				border-bottom-left-radius: 0;
 				border-bottom-right-radius: 0;
 			}
@@ -26,6 +27,12 @@
 		border-radius: 0px 0px 4px 4px;
 		background: $color__bg-panel;
 		padding: 10px 0;
+		margin: -1px 0 0 0;
+		&-message,
+		&-loading {
+			padding: 0 10px;
+			color: $color__text;
+		}
 	}
 	&__result {
 		color: $color__text;
@@ -37,13 +44,15 @@
 		&.is-selected {
 			background: $color__accent-lighter;
 		}
-		&:hover {
+		&:hover,
+		&.in-focus {
 			color: #fff;
 			background: $color__accent;
 		}
 	}
 	&__selected {
 		display: flex;
+		flex-wrap: wrap;
 		&-not-empty {
 			margin: 0 0 15px;
 		}
@@ -55,6 +64,7 @@
 			cursor: pointer;
 			color: $color__text;
 			margin: 0 5px 5px 0;
+			white-space: nowrap;
 			&-icon {
 				width: 22px;
 				height: 22px;

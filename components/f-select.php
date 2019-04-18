@@ -26,13 +26,20 @@
 			v-click-outside.capture="onClickOutside"
 			v-click-outside:mousedown.capture="onClickOutside"
 			v-click-outside:touchstart.capture="onClickOutside"
+
+			@keydown.up.prevent="handleOptionsNav"
+			@keydown.down.prevent="handleOptionsNav"
+			@keydown.tab="handleOptionsNav"
+			@keydown.enter="handleEnter"
+
 			class="cx-vui-f-select__control"
 		>
 			<input
 				:id="currentId"
 				:autocomplete="autocomplete"
 				type="text"
-				v-model="query"
+				:value="query"
+				@input="handleInput"
 				@focus="handleFocus"
 				:class="{
 					'cx-vui-f-select__input': true,
@@ -42,17 +49,29 @@
 				}"
 			>
 			<div class="cx-vui-f-select__results" v-if="inFocus">
-				<div v-if="remote && loading" class="cx-vui-f-select__results-loading" v-html="loadingMeassge"></div>
-				<div v-else-if="remote" class="cx-vui-f-select__results-message">
-				</div>
+				<div v-if="remote && loading" class="cx-vui-f-select__results-loading" v-html="loadingMessage"></div>
 				<div
-					v-for="option in filteredOptions"
-					:class="{
-						'cx-vui-f-select__result':true,
-						'is-selected': isOptionSelected( option )
-					}"
-					@click="handleResultClick( option.value )"
-				>{{ option.label }}</div>
+					v-else-if="remote && charsDiff > 0"
+					v-html="parsedRemoteTriggerMessage"
+					class="cx-vui-f-select__results-message"
+				></div>
+				<div
+					v-else-if="! filteredOptions.length"
+					v-html="notFoundMeassge"
+					class="cx-vui-f-select__results-message"
+				></div>
+				<div v-else>
+
+					<div
+						v-for="( option, optionIndex ) in filteredOptions"
+						:class="{
+							'cx-vui-f-select__result': true,
+							'in-focus': optionIndex === optionInFocus,
+							'is-selected': isOptionSelected( option )
+						}"
+						@click="handleResultClick( option.value )"
+					>{{ option.label }}</div>
+				</div>
 			</div>
 		</div>
 		<select
