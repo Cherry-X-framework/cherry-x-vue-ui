@@ -119,6 +119,9 @@ if ( ! class_exists( 'CX_Vue_UI' ) ) {
 				'title',
 				'collapse',
 				'component-wrapper',
+				'button',
+				'repeater',
+				'repeater-item',
 
 				// Form elements
 				'input',

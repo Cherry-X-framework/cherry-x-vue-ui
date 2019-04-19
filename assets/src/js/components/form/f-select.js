@@ -271,6 +271,10 @@ const FilterableSelect = {
 		},
 		handleResultClick( value ) {
 
+			/*console.log( value );
+			console.log( this.currentValues );
+			console.log( oneOf( value, this.currentValues ) );*/
+
 			if ( oneOf( value, this.currentValues ) ) {
 				this.removeValue( value );
 			} else {

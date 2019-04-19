@@ -132,7 +132,7 @@ const checkConditions = {
 function oneOf(value, validList) {
 
 	for (let i = 0; i < validList.length; i++) {
-		if (value === validList[i]) {
+		if (value == validList[i]) {
 			return true;
 		}
 	}
@@ -169,11 +169,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_layout_title__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_layout_collapse__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_layout_component_wrapper__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_form_input__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_form_switcher__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_form_iconpicker__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_form_select__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_form_f_select__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_layout_button__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_layout_repeater__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_layout_repeater_item__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_form_input__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_form_switcher__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_form_iconpicker__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_form_select__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_form_f_select__ = __webpack_require__(13);
+
+
+
+
 
 
 
@@ -186,11 +193,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Vue.component(__WEBPACK_IMPORTED_MODULE_0__components_layout_title__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_0__components_layout_title__["a" /* default */]);
 Vue.component(__WEBPACK_IMPORTED_MODULE_1__components_layout_collapse__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_1__components_layout_collapse__["a" /* default */]);
 Vue.component(__WEBPACK_IMPORTED_MODULE_2__components_layout_component_wrapper__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_2__components_layout_component_wrapper__["a" /* default */]);
-Vue.component(__WEBPACK_IMPORTED_MODULE_3__components_form_input__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_3__components_form_input__["a" /* default */]);
-Vue.component(__WEBPACK_IMPORTED_MODULE_4__components_form_switcher__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_4__components_form_switcher__["a" /* default */]);
-Vue.component(__WEBPACK_IMPORTED_MODULE_5__components_form_iconpicker__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_5__components_form_iconpicker__["a" /* default */]);
-Vue.component(__WEBPACK_IMPORTED_MODULE_6__components_form_select__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_6__components_form_select__["a" /* default */]);
-Vue.component(__WEBPACK_IMPORTED_MODULE_7__components_form_f_select__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_7__components_form_f_select__["a" /* default */]);
+Vue.component(__WEBPACK_IMPORTED_MODULE_3__components_layout_button__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_3__components_layout_button__["a" /* default */]);
+Vue.component(__WEBPACK_IMPORTED_MODULE_4__components_layout_repeater__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_4__components_layout_repeater__["a" /* default */]);
+Vue.component(__WEBPACK_IMPORTED_MODULE_5__components_layout_repeater_item__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_5__components_layout_repeater_item__["a" /* default */]);
+
+Vue.component(__WEBPACK_IMPORTED_MODULE_6__components_form_input__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_6__components_form_input__["a" /* default */]);
+Vue.component(__WEBPACK_IMPORTED_MODULE_7__components_form_switcher__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_7__components_form_switcher__["a" /* default */]);
+Vue.component(__WEBPACK_IMPORTED_MODULE_8__components_form_iconpicker__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_8__components_form_iconpicker__["a" /* default */]);
+Vue.component(__WEBPACK_IMPORTED_MODULE_9__components_form_select__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_9__components_form_select__["a" /* default */]);
+Vue.component(__WEBPACK_IMPORTED_MODULE_10__components_form_f_select__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_10__components_form_f_select__["a" /* default */]);
 
 /***/ }),
 /* 4 */
@@ -1290,6 +1301,10 @@ const FilterableSelect = {
 		},
 		handleResultClick(value) {
 
+			/*console.log( value );
+   console.log( this.currentValues );
+   console.log( oneOf( value, this.currentValues ) );*/
+
 			if (Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* oneOf */])(value, this.currentValues)) {
 				this.removeValue(value);
 			} else {
@@ -1390,6 +1405,198 @@ const FilterableSelect = {
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (FilterableSelect);
+
+/***/ }),
+/* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_assist__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_check_conditions__ = __webpack_require__(0);
+
+
+
+const Button = {
+	name: 'cx-vui-button',
+	template: '#cx-vui-button',
+	mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_check_conditions__["a" /* checkConditions */]],
+	props: {
+		type: {
+			validator(value) {
+				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* oneOf */])(value, ['button', 'submit', 'reset']);
+			},
+			default: 'button'
+		},
+		buttonStyle: {
+			validator(value) {
+				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* oneOf */])(value, ['default', 'accent']);
+			},
+			default: 'default'
+		},
+		size: {
+			validator(value) {
+				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* oneOf */])(value, ['default', 'mini']);
+			},
+			default: 'default'
+		},
+		disabled: {
+			type: Boolean,
+			default: false
+		},
+		loading: {
+			type: Boolean,
+			default: false
+		},
+		customCSS: {
+			type: String
+		},
+		url: {
+			type: String
+		},
+		target: {
+			type: String
+		},
+		tagName: {
+			validator(value) {
+				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* oneOf */])(value, ['a', 'button']);
+			},
+			default: 'button'
+		},
+		elementId: {
+			type: String
+		}
+	},
+	data() {
+		return {
+			baseClass: 'cx-vui-button'
+		};
+	},
+	computed: {
+		classesList() {
+
+			let classesList = [this.baseClass, this.baseClass + '--style-' + this.buttonStyle, this.baseClass + '--size-' + this.size];
+
+			if (this.loading) {
+				classesList.push(this.baseClass + '--loading');
+			}
+
+			if (this.disabled) {
+				classesList.push(this.baseClass + '--disabled');
+			}
+
+			if (this.customCSS) {
+				classesList.push(this.customCSS);
+			}
+
+			return classesList;
+		},
+		tagAtts() {
+
+			let atts = {};
+
+			if ('a' === this.tagName) {
+
+				if (this.url) {
+					atts.href = this.url;
+				}
+
+				if (this.target) {
+					atts.target = this.target;
+				}
+			} else {
+				atts.type = this.type;
+			}
+
+			return atts;
+		}
+	},
+	methods: {
+		handleClick() {
+			this.$emit('click', event);
+		}
+	}
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Button);
+
+/***/ }),
+/* 15 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const Repeater = {
+	name: 'cx-vui-repeater',
+	template: '#cx-vui-repeater',
+	props: {
+		buttonLabel: {
+			type: String
+		},
+		buttonStyle: {
+			type: String,
+			default: 'accent'
+		},
+		buttonSize: {
+			type: String,
+			default: 'default'
+		}
+	},
+	methods: {
+		handleClick(event) {
+			this.$emit('add-new-item', event);
+		}
+	}
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Repeater);
+
+/***/ }),
+/* 16 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const RepeaterItem = {
+	name: 'cx-vui-repeater-item',
+	template: '#cx-vui-repeater-item',
+	props: {
+		title: {
+			type: String
+		},
+		subtitle: {
+			type: String
+		},
+		collapsed: {
+			type: Boolean,
+			default: true
+		},
+		itemIndex: {
+			type: Number
+		}
+	},
+	data() {
+		return {
+			fieldData: this.field,
+			isCollapsed: this.collapsed,
+			showConfirmTip: false
+		};
+	},
+	methods: {
+		handleCopy() {
+			this.$emit('clone-item', this.itemIndex);
+		},
+		handleDelete() {
+			this.showConfirmTip = true;
+		},
+		confrimDeletion() {
+			this.showConfirmTip = false;
+			this.$emit('delete-item', this.itemIndex);
+		},
+		cancelDeletion() {
+			this.showConfirmTip = false;
+		}
+	}
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (RepeaterItem);
 
 /***/ })
 /******/ ]);
