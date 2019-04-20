@@ -177,10 +177,14 @@ const Iconpicker = {
 		},
 		closePanel() {
 
-			this.panelActive = false;
-			this.filterQuery = '';
+			if ( this.panelActive ) {
 
-			this.$emit( 'on-panel-closed' );
+				this.panelActive = false;
+				this.filterQuery = '';
+
+				this.$emit( 'on-panel-closed' );
+
+			}
 
 		}
 	},

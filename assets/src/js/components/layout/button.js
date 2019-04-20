@@ -50,6 +50,12 @@ const Button = {
 		elementId: {
 			type: String
 		},
+		conditions: {
+			type: Array,
+			default() {
+				return [];
+			}
+		},
 	},
 	data() {
 		return {

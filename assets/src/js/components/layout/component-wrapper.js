@@ -1,10 +1,11 @@
 import { wrapperClasses } from '../../mixins/wrapper-classes';
+import { checkConditions } from '../../mixins/check-conditions';
 
 const ComponentWrapper = {
 
 	name: 'cx-vui-component-wrapper',
 	template: '#cx-vui-component-wrapper',
-	mixins: [ wrapperClasses ],
+	mixins: [ wrapperClasses, checkConditions ],
 	props: {
 		elementId: {
 			type: String
@@ -22,6 +23,12 @@ const ComponentWrapper = {
 		wrapperCss: {
 			type: Array,
 			default: function() {
+				return [];
+			}
+		},
+		conditions: {
+			type: Array,
+			default() {
 				return [];
 			}
 		},

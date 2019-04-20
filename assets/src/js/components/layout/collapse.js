@@ -1,10 +1,19 @@
+import { checkConditions } from '../../mixins/check-conditions';
+
 const Collapse = {
 	name: 'cx-vui-collapse',
 	template: '#cx-vui-collapse',
+	mixins: [ checkConditions ],
 	props: {
 		collapsed: {
 			type: Boolean,
 			default: false
+		},
+		conditions: {
+			type: Array,
+			default() {
+				return [];
+			}
 		},
 	},
 	data() {

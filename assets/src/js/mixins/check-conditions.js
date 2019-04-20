@@ -6,8 +6,8 @@ export const checkConditions = {
 				return true
 			} else {
 
-				let conditionsMet = [];
-				let operator = 'AND';
+				let conditionsMet    = [];
+				let operator         = 'AND';
 				let conditionsLength = this.conditions.length;
 
 				for ( var i = 0; i < this.conditions.length; i++) {
@@ -21,14 +21,14 @@ export const checkConditions = {
 					switch ( this.conditions[ i ].compare ) {
 						case 'equal':
 
-							if ( this.conditions[ i ].var === this.conditions[ i ].value ) {
+							if ( this.conditions[ i ].input === this.conditions[ i ].value ) {
 								conditionsMet.push( this.conditions[ i ].value );
 							}
 
 							break;
 						case 'not_equal':
 
-							if ( this.conditions[ i ].var !== this.conditions[ i ].value ) {
+							if ( this.conditions[ i ].input !== this.conditions[ i ].value ) {
 								conditionsMet.push( this.conditions[ i ].value );
 							}
 

@@ -15,6 +15,12 @@
 			}
 		}
 	}
+	&--fullwidth-control {
+		.cx-vui-component__control {
+			max-width: 100%;
+			flex: 0 0 100%;
+		}
+	}
 	&__meta {
 		display: flex;
 		flex-direction: column;

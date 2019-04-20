@@ -220,8 +220,10 @@ const FilterableSelect = {
 		},
 		onClickOutside( event ) {
 
-			this.inFocus = false;
-			this.$emit( 'on-blur', event );
+			if ( this.inFocus ) {
+				this.inFocus = false;
+				this.$emit( 'on-blur', event );
+			}
 
 		},
 		handleInput( event ) {

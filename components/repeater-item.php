@@ -13,7 +13,7 @@
 	>
 		<div
 			class="cx-vui-repeater-item__heading-start"
-			@click="isCollapsed = ! isCollapsed"
+			@click.stop="isCollapsed = ! isCollapsed"
 		>
 			<svg
 				:class="{

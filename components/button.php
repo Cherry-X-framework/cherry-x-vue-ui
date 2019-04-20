@@ -5,6 +5,7 @@
 	:disabled="disabled"
 	v-bind="tagAtts"
 	@click="handleClick"
+	v-if="isVisible()"
 >
 	<span :class="[ this.baseClass + '__content' ]">
 		<slot name="label"></slot>

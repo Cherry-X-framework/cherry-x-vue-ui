@@ -1,6 +1,9 @@
+import { ElementMixin } from 'vue-slicksort';
+
 const RepeaterItem = {
 	name: 'cx-vui-repeater-item',
 	template: '#cx-vui-repeater-item',
+	mixins: [ ElementMixin ],
 	props: {
 		title: {
 			type: String,
@@ -12,7 +15,7 @@ const RepeaterItem = {
 			type: Boolean,
 			default: true,
 		},
-		itemIndex: {
+		index: {
 			type: Number,
 		},
 	},
@@ -25,14 +28,14 @@ const RepeaterItem = {
 	},
 	methods: {
 		handleCopy() {
-			this.$emit( 'clone-item', this.itemIndex );
+			this.$emit( 'clone-item', this.index );
 		},
 		handleDelete() {
 			this.showConfirmTip = true;
 		},
 		confrimDeletion() {
 			this.showConfirmTip = false;
-			this.$emit( 'delete-item', this.itemIndex );
+			this.$emit( 'delete-item', this.index );
 		},
 		cancelDeletion() {
 			this.showConfirmTip = false;

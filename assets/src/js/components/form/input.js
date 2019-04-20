@@ -115,9 +115,6 @@ const Input = {
 		handleKeyup ( event ) {
 			this.$emit( 'on-keyup', event );
 		},
-		handleIconClick ( event ) {
-			this.$emit( 'on-click', event );
-		},
 		handleFocus ( event ) {
 			this.$emit( 'on-focus', event );
 		},

@@ -10,6 +10,7 @@ import Switcher from './components/form/switcher';
 import Iconpicker from './components/form/iconpicker';
 import SelectPlain from './components/form/select';
 import FilterableSelect from './components/form/f-select';
+import Checkbox from './components/form/checkbox';
 
 Vue.component( Title.name, Title );
 Vue.component( Collapse.name, Collapse );
@@ -23,3 +24,4 @@ Vue.component( Switcher.name, Switcher );
 Vue.component( Iconpicker.name, Iconpicker );
 Vue.component( SelectPlain.name, SelectPlain );
 Vue.component( FilterableSelect.name, FilterableSelect );
+Vue.component( Checkbox.name, Checkbox );

@@ -1,6 +1,10 @@
+import { ContainerMixin } from 'vue-slicksort';
+import { checkConditions } from '../../mixins/check-conditions';
+
 const Repeater = {
 	name: 'cx-vui-repeater',
 	template: '#cx-vui-repeater',
+	mixins: [ ContainerMixin, checkConditions ],
 	props: {
 		buttonLabel: {
 			type: String,
@@ -13,6 +17,27 @@ const Repeater = {
 			type: String,
 			default: 'default',
 		},
+		value: {
+			type: Array,
+			default() {
+				return [];
+			}
+		},
+		distance: {
+			type: Number,
+			default: 20,
+		},
+		conditions: {
+			type: Array,
+			default() {
+				return [];
+			}
+		},
+	},
+	data() {
+		return {
+			inFocus: false,
+		}
 	},
 	methods: {
 		handleClick( event ) {
