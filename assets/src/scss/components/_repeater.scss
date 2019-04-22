@@ -7,6 +7,9 @@
 		color: $color__text;
 		margin: 0 0 0 20px;
 	}
+	.cx-vui-collapse__content > & {
+		margin-bottom: 25px;
+	}
 }
 
 .cx-vui-repeater-item {

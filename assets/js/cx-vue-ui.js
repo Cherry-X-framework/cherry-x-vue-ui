@@ -1267,6 +1267,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_form_select__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_form_f_select__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_form_checkbox__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_form_radio__ = __webpack_require__(19);
+
 
 
 
@@ -1294,6 +1296,7 @@ Vue.component(__WEBPACK_IMPORTED_MODULE_8__components_form_iconpicker__["a" /* d
 Vue.component(__WEBPACK_IMPORTED_MODULE_9__components_form_select__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_9__components_form_select__["a" /* default */]);
 Vue.component(__WEBPACK_IMPORTED_MODULE_10__components_form_f_select__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_10__components_form_f_select__["a" /* default */]);
 Vue.component(__WEBPACK_IMPORTED_MODULE_11__components_form_checkbox__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_11__components_form_checkbox__["a" /* default */]);
+Vue.component(__WEBPACK_IMPORTED_MODULE_12__components_form_radio__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_12__components_form_radio__["a" /* default */]);
 
 /***/ }),
 /* 5 */
@@ -2497,6 +2500,7 @@ const FilterableSelect = {
 		}
 	},
 	created() {
+
 		if (!this.currentValues) {
 			this.currentValues = [];
 		} else if ('object' !== typeof this.currentValues) {
@@ -2526,6 +2530,12 @@ const FilterableSelect = {
 					}
 				});
 			}
+		} else if (this.currentValues.length) {
+			this.options.forEach(option => {
+				if (Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* oneOf */])(option.value, this.currentValues)) {
+					this.selectedOptions.push(option);
+				}
+			});
 		}
 	},
 	computed: {
@@ -2825,7 +2835,8 @@ const Checkbox = {
 	data() {
 		return {
 			currentValues: this.value,
-			currentId: this.elementId
+			currentId: this.elementId,
+			optionInFocus: null
 		};
 	},
 	watch: {
@@ -2898,22 +2909,52 @@ const Checkbox = {
 		handleClick(event) {
 			this.$emit('on-click', event);
 		},
-		handleFocus(event) {
-			this.$emit('on-focus', event);
+		handleFocus(event, value) {
+
+			if (this.disabled) {
+				return;
+			}
+
+			this.optionInFocus = value;
+			this.$emit('on-focus', event, value);
 		},
-		handleBlur(event) {
-			this.$emit('on-blur', event);
+		handleBlur(event, value) {
+
+			if (this.disabled) {
+				return;
+			}
+
+			if (value === this.optionInFocus) {
+				this.optionInFocus = null;
+			}
+
+			this.$emit('on-blur', event, value);
+		},
+		handleParentFocus() {
+
+			if (this.disabled) {
+				return;
+			}
+
+			if (null === this.optionInFocus && this.optionsList.length) {
+				this.optionInFocus = this.optionsList[0].value;
+			}
 		},
 		handleInput(event, value) {
+
+			if (this.disabled) {
+				return;
+			}
 
 			this.updateValueState(value);
 
 			this.$emit('input', this.currentValues);
 			this.$emit('on-change', event);
 		},
+		isOptionInFocus(value) {
+			return value === this.optionInFocus;
+		},
 		updateValueState(value) {
-
-			console.log(value);
 
 			switch (this.returnType) {
 
@@ -2974,6 +3015,135 @@ const Checkbox = {
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (Checkbox);
+
+/***/ }),
+/* 19 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_assist__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_check_conditions__ = __webpack_require__(0);
+
+
+
+const Radio = {
+
+	name: 'cx-vui-radio',
+	template: '#cx-vui-radio',
+	mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_check_conditions__["a" /* checkConditions */]],
+	props: {
+		value: {
+			default: ''
+		},
+		disabled: {
+			type: Boolean,
+			default: false
+		},
+		name: {
+			type: String
+		},
+		optionsList: {
+			type: Array,
+			default() {
+				return [];
+			}
+		},
+		elementId: {
+			type: String
+		},
+		conditions: {
+			type: Array,
+			default() {
+				return [];
+			}
+		},
+		// Wrapper related props (should be passed into wrapper component)
+		preventWrap: {
+			type: Boolean,
+			default: false
+		},
+		label: {
+			type: String
+		},
+		description: {
+			type: String
+		},
+		wrapperCss: {
+			type: Array,
+			default: function () {
+				return [];
+			}
+		}
+	},
+	data() {
+		return {
+			currentValue: this.value,
+			currentId: this.elementId,
+			optionInFocus: null
+		};
+	},
+	watch: {
+		value(val) {
+			this.setCurrentValue(val);
+		}
+	},
+	mounted() {
+		if (!this.currentId && this.name) {
+			this.currentId = 'cx_' + this.name;
+		}
+	},
+	methods: {
+		handleEnter(event) {
+			this.$emit('on-enter', event);
+		},
+		handleClick(event) {
+			this.$emit('on-click', event);
+		},
+		handleFocus(event, value) {
+
+			if (this.disabled) {
+				return;
+			}
+
+			this.optionInFocus = value;
+			this.$emit('on-focus', event, value);
+		},
+		handleBlur(event, value) {
+
+			if (this.disabled) {
+				return;
+			}
+
+			if (value === this.optionInFocus) {
+				this.optionInFocus = null;
+			}
+
+			this.$emit('on-blur', event, value);
+		},
+		handleInput(event, value) {
+
+			if (this.disabled) {
+				return;
+			}
+
+			this.setCurrentValue(value);
+
+			this.$emit('input', this.currentValue);
+			this.$emit('on-change', event);
+		},
+		isOptionInFocus(value) {
+			return value === this.optionInFocus;
+		},
+		setCurrentValue(value) {
+
+			if (value !== this.currentValue) {
+				this.currentValue = value;
+			}
+		}
+	}
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Radio);
 
 /***/ })
 /******/ ]);

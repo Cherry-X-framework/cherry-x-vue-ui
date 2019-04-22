@@ -130,6 +130,7 @@ if ( ! class_exists( 'CX_Vue_UI' ) ) {
 				'select',
 				'f-select',
 				'checkbox',
+				'radio',
 			) );
 		}
 

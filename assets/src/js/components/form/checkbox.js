@@ -68,6 +68,7 @@ const Checkbox = {
 		return {
 			currentValues: this.value,
 			currentId: this.elementId,
+			optionInFocus: null,
 		};
 	},
 	watch: {
@@ -141,22 +142,54 @@ const Checkbox = {
 		handleClick( event ) {
 			this.$emit( 'on-click', event );
 		},
-		handleFocus ( event ) {
-			this.$emit( 'on-focus', event );
+		handleFocus( event, value ) {
+
+			if ( this.disabled ) {
+				return;
+			}
+
+			this.optionInFocus = value;
+			this.$emit( 'on-focus', event, value );
+
 		},
-		handleBlur ( event ) {
-			this.$emit( 'on-blur', event );
+		handleBlur ( event, value ) {
+
+			if ( this.disabled ) {
+				return;
+			}
+
+			if ( value === this.optionInFocus ) {
+				this.optionInFocus = null;
+			}
+
+			this.$emit( 'on-blur', event, value );
+
+		},
+		handleParentFocus() {
+
+			if ( this.disabled ) {
+				return;
+			}
+
+			if ( null === this.optionInFocus && this.optionsList.length ) {
+				this.optionInFocus = this.optionsList[0].value;
+			}
 		},
 		handleInput ( event, value ) {
+
+			if ( this.disabled ) {
+				return;
+			}
 
 			this.updateValueState( value );
 
 			this.$emit( 'input', this.currentValues );
 			this.$emit( 'on-change', event );
 		},
+		isOptionInFocus( value ) {
+			return value === this.optionInFocus;
+		},
 		updateValueState( value ) {
-
-			console.log( value );
 
 			switch ( this.returnType ) {
 

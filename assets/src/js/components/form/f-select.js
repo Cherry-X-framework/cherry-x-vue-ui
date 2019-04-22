@@ -116,6 +116,7 @@ const FilterableSelect = {
 		},
 	},
 	created() {
+
 		if ( ! this.currentValues ) {
 			this.currentValues = [];
 		} else if ( 'object' !== typeof this.currentValues ) {
@@ -134,21 +135,27 @@ const FilterableSelect = {
 
 		if ( this.remote && this.remoteCallback && this.currentValues.length ) {
 
-				this.loading = true;
+			this.loading = true;
 
-				const promise = this.remoteCallback( this.query, this.currentValues );
+			const promise = this.remoteCallback( this.query, this.currentValues );
 
-				if ( promise && promise.then ) {
-					promise.then( options => {
-						if ( options ) {
-							this.selectedOptions = options;
-							this.loaded  = true;
-							this.loading = false;
-						}
-					} );
-				}
-
+			if ( promise && promise.then ) {
+				promise.then( options => {
+					if ( options ) {
+						this.selectedOptions = options;
+						this.loaded  = true;
+						this.loading = false;
+					}
+				} );
 			}
+
+		} else if ( this.currentValues.length ) {
+			this.options.forEach( option => {
+				if ( oneOf( option.value, this.currentValues ) ) {
+					this.selectedOptions.push( option );
+				}
+			} );
+		}
 
 	},
 	computed: {

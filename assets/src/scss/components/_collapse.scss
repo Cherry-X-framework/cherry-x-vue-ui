@@ -1,8 +1,7 @@
 .cx-vui-collapse {
-	border-top: 1px solid $color__border-off-panel;
 	border-bottom: 1px solid $color__border-off-panel;
-	+ .cx-vui-collapse {
-		border-top: none;
+	&:last-child {
+		border-bottom: none;
 	}
 	&__heading {
 		display: flex;
