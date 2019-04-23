@@ -32,7 +32,7 @@ const Button = {
 			type: Boolean,
 			default: false
 		},
-		customCSS: {
+		customCss: {
 			type: String,
 		},
 		url: {
@@ -79,8 +79,8 @@ const Button = {
 				classesList.push( this.baseClass + '--disabled' );
 			}
 
-			if ( this.customCSS ) {
-				classesList.push( this.customCSS );
+			if ( this.customCss ) {
+				classesList.push( this.customCss );
 			}
 
 			return classesList;

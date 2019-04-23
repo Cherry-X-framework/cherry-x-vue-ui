@@ -1,3 +1,5 @@
+import { oneOf } from '../utils/assist';
+
 export const checkConditions = {
 	methods: {
 		isVisible() {
@@ -19,6 +21,7 @@ export const checkConditions = {
 					}
 
 					switch ( this.conditions[ i ].compare ) {
+
 						case 'equal':
 
 							if ( this.conditions[ i ].input === this.conditions[ i ].value ) {
@@ -26,6 +29,7 @@ export const checkConditions = {
 							}
 
 							break;
+
 						case 'not_equal':
 
 							if ( this.conditions[ i ].input !== this.conditions[ i ].value ) {
@@ -33,6 +37,39 @@ export const checkConditions = {
 							}
 
 							break;
+
+						case 'in':
+
+							if ( oneOf( this.conditions[ i ].input, this.conditions[ i ].value ) ) {
+								conditionsMet.push( this.conditions[ i ].value );
+							}
+
+							break;
+
+						case 'not_in':
+
+							if ( ! oneOf( this.conditions[ i ].input, this.conditions[ i ].value ) ) {
+								conditionsMet.push( this.conditions[ i ].value );
+							}
+
+							break;
+
+						case 'contains':
+
+							if ( oneOf( this.conditions[ i ].value, this.conditions[ i ].input ) ) {
+								conditionsMet.push( this.conditions[ i ].value );
+							}
+
+							break;
+
+						case 'not_contains':
+
+							if ( ! oneOf( this.conditions[ i ].value, this.conditions[ i ].input ) ) {
+								conditionsMet.push( this.conditions[ i ].value );
+							}
+
+							break;
+
 					}
 				};
 

@@ -1,4 +1,6 @@
-<div :class="wrapperClasses()" v-if="!preventWrap">
+<div
+	:class="wrapperClasses()" v-if="isVisible() && ! preventWrap"
+>
 	<div
 		class="cx-vui-component__meta"
 		v-if="this.label || this.description"
@@ -19,6 +21,9 @@
 		<slot></slot>
 	</div>
 </div>
-<div class="cx-vui-component-raw" v-else>
+<div
+	class="cx-vui-component-raw"
+	v-else-if="isVisible()"
+>
 	<slot></slot>
 </div>

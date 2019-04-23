@@ -68,6 +68,9 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_assist__ = __webpack_require__(1);
+
+
 const checkConditions = {
 	methods: {
 		isVisible() {
@@ -89,6 +92,7 @@ const checkConditions = {
 					}
 
 					switch (this.conditions[i].compare) {
+
 						case 'equal':
 
 							if (this.conditions[i].input === this.conditions[i].value) {
@@ -96,6 +100,7 @@ const checkConditions = {
 							}
 
 							break;
+
 						case 'not_equal':
 
 							if (this.conditions[i].input !== this.conditions[i].value) {
@@ -103,6 +108,39 @@ const checkConditions = {
 							}
 
 							break;
+
+						case 'in':
+
+							if (Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(this.conditions[i].input, this.conditions[i].value)) {
+								conditionsMet.push(this.conditions[i].value);
+							}
+
+							break;
+
+						case 'not_in':
+
+							if (!Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(this.conditions[i].input, this.conditions[i].value)) {
+								conditionsMet.push(this.conditions[i].value);
+							}
+
+							break;
+
+						case 'contains':
+
+							if (Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(this.conditions[i].value, this.conditions[i].input)) {
+								conditionsMet.push(this.conditions[i].value);
+							}
+
+							break;
+
+						case 'not_contains':
+
+							if (!Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(this.conditions[i].value, this.conditions[i].input)) {
+								conditionsMet.push(this.conditions[i].value);
+							}
+
+							break;
+
 					}
 				};
 
@@ -128,7 +166,8 @@ const checkConditions = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = oneOf;
+/* harmony export (immutable) */ __webpack_exports__["b"] = oneOf;
+/* harmony export (immutable) */ __webpack_exports__["a"] = arraysEqual;
 function oneOf(value, validList) {
 
 	for (let i = 0; i < validList.length; i++) {
@@ -138,6 +177,21 @@ function oneOf(value, validList) {
 	}
 
 	return false;
+}
+
+function arraysEqual(arr1, arr2) {
+
+	if (arr1.length !== arr2.length) {
+		return false;
+	}
+
+	for (var i = arr1.length; i--;) {
+		if (arr1[i] !== arr2[i]) {
+			return false;
+		}
+	}
+
+	return true;
 }
 
 /***/ }),
@@ -1457,19 +1511,19 @@ const Button = {
 	props: {
 		type: {
 			validator(value) {
-				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* oneOf */])(value, ['button', 'submit', 'reset']);
+				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(value, ['button', 'submit', 'reset']);
 			},
 			default: 'button'
 		},
 		buttonStyle: {
 			validator(value) {
-				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* oneOf */])(value, ['default', 'accent']);
+				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(value, ['default', 'accent']);
 			},
 			default: 'default'
 		},
 		size: {
 			validator(value) {
-				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* oneOf */])(value, ['default', 'mini']);
+				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(value, ['default', 'mini']);
 			},
 			default: 'default'
 		},
@@ -1481,7 +1535,7 @@ const Button = {
 			type: Boolean,
 			default: false
 		},
-		customCSS: {
+		customCss: {
 			type: String
 		},
 		url: {
@@ -1492,7 +1546,7 @@ const Button = {
 		},
 		tagName: {
 			validator(value) {
-				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* oneOf */])(value, ['a', 'button']);
+				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(value, ['a', 'button']);
 			},
 			default: 'button'
 		},
@@ -1524,8 +1578,8 @@ const Button = {
 				classesList.push(this.baseClass + '--disabled');
 			}
 
-			if (this.customCSS) {
-				classesList.push(this.customCSS);
+			if (this.customCss) {
+				classesList.push(this.customCss);
 			}
 
 			return classesList;
@@ -1689,7 +1743,7 @@ const Input = {
 	props: {
 		type: {
 			validator(value) {
-				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* oneOf */])(value, ['text', 'textarea', 'password', 'url', 'email', 'date', 'number', 'tel']);
+				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(value, ['text', 'textarea', 'password', 'url', 'email', 'date', 'number', 'tel']);
 			},
 			default: 'text'
 		},
@@ -1699,7 +1753,7 @@ const Input = {
 		},
 		size: {
 			validator(value) {
-				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* oneOf */])(value, ['small', 'large', 'default', 'fullwidth']);
+				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(value, ['small', 'large', 'default', 'fullwidth']);
 			},
 			default: 'default'
 		},
@@ -1727,7 +1781,7 @@ const Input = {
 		},
 		autocomplete: {
 			validator(value) {
-				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* oneOf */])(value, ['on', 'off']);
+				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(value, ['on', 'off']);
 			},
 			default: 'off'
 		},
@@ -1980,7 +2034,7 @@ const Iconpicker = {
 		},
 		size: {
 			validator(value) {
-				return Object(__WEBPACK_IMPORTED_MODULE_1__utils_assist__["a" /* oneOf */])(value, ['small', 'large', 'default', 'fullwidth']);
+				return Object(__WEBPACK_IMPORTED_MODULE_1__utils_assist__["b" /* oneOf */])(value, ['small', 'large', 'default', 'fullwidth']);
 			},
 			default: 'default'
 		},
@@ -2008,7 +2062,7 @@ const Iconpicker = {
 		},
 		autocomplete: {
 			validator(value) {
-				return Object(__WEBPACK_IMPORTED_MODULE_1__utils_assist__["a" /* oneOf */])(value, ['on', 'off']);
+				return Object(__WEBPACK_IMPORTED_MODULE_1__utils_assist__["b" /* oneOf */])(value, ['on', 'off']);
 			},
 			default: 'off'
 		},
@@ -2200,7 +2254,7 @@ const SelectPlain = {
 		},
 		size: {
 			validator(value) {
-				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* oneOf */])(value, ['small', 'large', 'default', 'fullwidth']);
+				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(value, ['small', 'large', 'default', 'fullwidth']);
 			},
 			default: 'default'
 		},
@@ -2331,7 +2385,7 @@ const SelectPlain = {
 
 			if (this.multiple) {
 
-				if (Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* oneOf */])(value, this.currentValue)) {
+				if (Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(value, this.currentValue)) {
 					return;
 				}
 
@@ -2363,7 +2417,7 @@ const SelectPlain = {
 			}
 
 			if (this.multiple) {
-				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* oneOf */])(option.value, this.currentValue);
+				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(option.value, this.currentValue);
 			} else {
 				return option.value === this.currentValue;
 			}
@@ -2427,7 +2481,7 @@ const FilterableSelect = {
 		},
 		autocomplete: {
 			validator(value) {
-				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* oneOf */])(value, ['on', 'off']);
+				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(value, ['on', 'off']);
 			},
 			default: 'off'
 		},
@@ -2492,8 +2546,22 @@ const FilterableSelect = {
 		};
 	},
 	watch: {
-		value(val) {
-			this.storeValues(val);
+		value(newValue, oldValue) {
+
+			if (this.multiple) {
+
+				if (Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* arraysEqual */])(newValue, oldValue)) {
+					return;
+				}
+			} else {
+
+				if (newValue === oldValue) {
+					return;
+				}
+			}
+
+			console.log(oldValue);
+			this.storeValues(newValue);
 		},
 		optionsList(options) {
 			this.setOptions(options);
@@ -2532,7 +2600,7 @@ const FilterableSelect = {
 			}
 		} else if (this.currentValues.length) {
 			this.options.forEach(option => {
-				if (Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* oneOf */])(option.value, this.currentValues)) {
+				if (Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(option.value, this.currentValues)) {
 					this.selectedOptions.push(option);
 				}
 			});
@@ -2654,13 +2722,10 @@ const FilterableSelect = {
 		},
 		handleResultClick(value) {
 
-			/*console.log( value );
-   console.log( this.currentValues );
-   console.log( oneOf( value, this.currentValues ) );*/
-
-			if (Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* oneOf */])(value, this.currentValues)) {
+			if (Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(value, this.currentValues)) {
 				this.removeValue(value);
 			} else {
+				console.log('handleResultClick');
 				this.storeValues(value);
 			}
 
@@ -2705,7 +2770,9 @@ const FilterableSelect = {
 
 			if (this.multiple) {
 
-				if (Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* oneOf */])(value, this.currentValues)) {
+				console.log(value);
+
+				if (Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(value, this.currentValues)) {
 					return;
 				}
 
@@ -2752,7 +2819,7 @@ const FilterableSelect = {
 				return false;
 			}
 
-			return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* oneOf */])(option.value, this.currentValues);
+			return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(option.value, this.currentValues);
 		}
 	}
 };
@@ -2777,7 +2844,7 @@ const Checkbox = {
 	props: {
 		returnType: {
 			validator(value) {
-				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* oneOf */])(value, ['array', 'object', 'single']);
+				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(value, ['array', 'object', 'single']);
 			},
 			default: 'object'
 		},
@@ -2885,7 +2952,7 @@ const Checkbox = {
 
 				case 'array':
 
-					return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* oneOf */])(optionValue, this.currentValues);
+					return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(optionValue, this.currentValues);
 
 				case 'object':
 
@@ -2968,7 +3035,7 @@ const Checkbox = {
 
 				case 'array':
 
-					if (!Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["a" /* oneOf */])(value, this.currentValues)) {
+					if (!Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(value, this.currentValues)) {
 						this.currentValues.push(value);
 					} else {
 						this.currentValues.push(value);

@@ -1,4 +1,4 @@
-import { oneOf } from '../../utils/assist';
+import { oneOf, arraysEqual } from '../../utils/assist';
 import { checkConditions } from '../../mixins/check-conditions';
 import { directive as clickOutside } from 'v-click-outside-x';
 
@@ -108,8 +108,25 @@ const FilterableSelect = {
 		};
 	},
 	watch: {
-		value( val ) {
-			this.storeValues( val );
+		value( newValue, oldValue ) {
+
+			if ( this.multiple ) {
+
+				if ( arraysEqual( newValue, oldValue ) ) {
+					return;
+				}
+
+			} else {
+
+				if ( newValue === oldValue ) {
+					return;
+				}
+
+			}
+
+			console.log( oldValue );
+			this.storeValues( newValue );
+
 		},
 		optionsList( options ) {
 			this.setOptions( options );
@@ -280,13 +297,10 @@ const FilterableSelect = {
 		},
 		handleResultClick( value ) {
 
-			/*console.log( value );
-			console.log( this.currentValues );
-			console.log( oneOf( value, this.currentValues ) );*/
-
 			if ( oneOf( value, this.currentValues ) ) {
 				this.removeValue( value );
 			} else {
+				console.log( 'handleResultClick' );
 				this.storeValues( value );
 			}
 
@@ -331,6 +345,8 @@ const FilterableSelect = {
 		storeValues( value ) {
 
 			if ( this.multiple ) {
+
+				console.log( value );
 
 				if ( oneOf( value, this.currentValues ) ) {
 					return;
