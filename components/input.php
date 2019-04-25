@@ -9,7 +9,7 @@
 	<input
 		:id="currentId"
 		:type="type"
-		:class="controlClasses()"
+		:class="controlClasses"
 		:placeholder="placeholder"
 		:disabled="disabled"
 		:maxlength="maxlength"

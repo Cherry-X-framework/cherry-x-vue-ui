@@ -44,6 +44,8 @@ if ( ! class_exists( 'CX_Vue_UI' ) ) {
 		 */
 		protected $version = '1.0.0';
 
+		protected $assets_enqueued = false;
+
 		/**
 		 * CX_Vue_UI constructor.
 		 *
@@ -73,6 +75,10 @@ if ( ! class_exists( 'CX_Vue_UI' ) ) {
 		 * @return void
 		 */
 		public function enqueue_assets() {
+
+			if ( $this->assets_enqueued ) {
+				return;
+			}
 
 			$suffix = '.min';
 
@@ -104,6 +110,8 @@ if ( ! class_exists( 'CX_Vue_UI' ) ) {
 				array(),
 				$this->version
 			);
+
+			$this->assets_enqueued = true;
 
 		}
 

@@ -34,6 +34,10 @@ const Input = {
 			type: Boolean,
 			default: false
 		},
+		error: {
+			type: Boolean,
+			default: false
+		},
 		readonly: {
 			type: Boolean,
 			default: false
@@ -94,15 +98,21 @@ const Input = {
 			this.currentId = 'cx_' + this.name;
 		}
 	},
-	methods: {
+	computed: {
 		controlClasses() {
 
 			var classesList = [ 'cx-vui-input' ]
 
 			classesList.push( 'size-' + this.size );
 
+			if ( this.error ) {
+				classesList.push( 'has-error' );
+			}
+
 			return classesList;
 		},
+	},
+	methods: {
 		handleEnter( event ) {
 			this.$emit( 'on-enter', event );
 		},

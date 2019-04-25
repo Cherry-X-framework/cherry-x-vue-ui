@@ -1768,6 +1768,10 @@ const Input = {
 			type: Boolean,
 			default: false
 		},
+		error: {
+			type: Boolean,
+			default: false
+		},
 		readonly: {
 			type: Boolean,
 			default: false
@@ -1828,15 +1832,21 @@ const Input = {
 			this.currentId = 'cx_' + this.name;
 		}
 	},
-	methods: {
+	computed: {
 		controlClasses() {
 
 			var classesList = ['cx-vui-input'];
 
 			classesList.push('size-' + this.size);
 
+			if (this.error) {
+				classesList.push('has-error');
+			}
+
 			return classesList;
-		},
+		}
+	},
+	methods: {
 		handleEnter(event) {
 			this.$emit('on-enter', event);
 		},
@@ -1947,7 +1957,14 @@ const Switcher = {
 	},
 	watch: {
 		value(val) {
+
 			this.setCurrentValue(val);
+
+			if (val === this.returnTrue) {
+				this.isOn = true;
+			} else {
+				this.isOn = false;
+			}
 		}
 	},
 	mounted() {
@@ -2560,7 +2577,6 @@ const FilterableSelect = {
 				}
 			}
 
-			console.log(oldValue);
 			this.storeValues(newValue);
 		},
 		optionsList(options) {
@@ -2725,7 +2741,6 @@ const FilterableSelect = {
 			if (Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(value, this.currentValues)) {
 				this.removeValue(value);
 			} else {
-				console.log('handleResultClick');
 				this.storeValues(value);
 			}
 
@@ -2769,8 +2784,6 @@ const FilterableSelect = {
 		storeValues(value) {
 
 			if (this.multiple) {
-
-				console.log(value);
 
 				if (Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(value, this.currentValues)) {
 					return;

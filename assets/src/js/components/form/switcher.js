@@ -62,7 +62,15 @@ const Switcher = {
 	},
 	watch: {
 		value( val ) {
+
 			this.setCurrentValue( val );
+
+			if ( val === this.returnTrue ) {
+				this.isOn = true;
+			} else {
+				this.isOn = false;
+			}
+
 		},
 	},
 	mounted() {

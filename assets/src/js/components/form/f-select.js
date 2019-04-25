@@ -124,7 +124,6 @@ const FilterableSelect = {
 
 			}
 
-			console.log( oldValue );
 			this.storeValues( newValue );
 
 		},
@@ -300,7 +299,6 @@ const FilterableSelect = {
 			if ( oneOf( value, this.currentValues ) ) {
 				this.removeValue( value );
 			} else {
-				console.log( 'handleResultClick' );
 				this.storeValues( value );
 			}
 
@@ -345,8 +343,6 @@ const FilterableSelect = {
 		storeValues( value ) {
 
 			if ( this.multiple ) {
-
-				console.log( value );
 
 				if ( oneOf( value, this.currentValues ) ) {
 					return;
