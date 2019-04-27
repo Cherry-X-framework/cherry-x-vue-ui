@@ -70,7 +70,7 @@ const FilterableSelect = {
 		},
 		notFoundMeassge: {
 			type: String,
-			default: 'There is no items find mathing this query'
+			default: 'There is no items find matching this query'
 		},
 		loadingMessage: {
 			type: String,
@@ -150,21 +150,7 @@ const FilterableSelect = {
 		}
 
 		if ( this.remote && this.remoteCallback && this.currentValues.length ) {
-
-			this.loading = true;
-
-			const promise = this.remoteCallback( this.query, this.currentValues );
-
-			if ( promise && promise.then ) {
-				promise.then( options => {
-					if ( options ) {
-						this.selectedOptions = options;
-						this.loaded  = true;
-						this.loading = false;
-					}
-				} );
-			}
-
+			this.remoteUpdateSelected();
 		} else if ( this.currentValues.length ) {
 			this.options.forEach( option => {
 				if ( oneOf( option.value, this.currentValues ) ) {
@@ -203,6 +189,23 @@ const FilterableSelect = {
 		},
 	},
 	methods: {
+		remoteUpdateSelected() {
+
+			this.loading = true;
+
+			const promise = this.remoteCallback( this.query, this.currentValues );
+
+			if ( promise && promise.then ) {
+				promise.then( options => {
+					if ( options ) {
+						this.selectedOptions = options;
+						this.loaded  = true;
+						this.loading = false;
+					}
+				} );
+			}
+
+		},
 		handleFocus( event ) {
 			this.inFocus = true;
 			this.$emit( 'on-focus', event );
@@ -342,24 +345,28 @@ const FilterableSelect = {
 		},
 		storeValues( value ) {
 
+			if ( oneOf( value, this.currentValues ) ) {
+				return;
+			}
+
 			if ( this.multiple ) {
 
-				if ( oneOf( value, this.currentValues ) ) {
-					return;
-				}
-
 				if ( 'object' === typeof value ) {
+
 					if ( '[object Array]' === Object.prototype.toString.call( value ) ) {
-						this.currentValues.concat( value );
 
 						value.forEach( singleVal => {
-							this.pushToSelected( singleVal );
+							if ( ! oneOf( singleVal, this.currentValues ) ) {
+								this.currentValues.push( value );
+								this.pushToSelected( singleVal );
+							}
 						} );
 
 					} else {
 						this.currentValues.push( value );
 						this.pushToSelected( value );
 					}
+
 				} else {
 					this.currentValues.push( value );
 					this.pushToSelected( value );
@@ -368,20 +375,22 @@ const FilterableSelect = {
 			} else {
 
 				if ( 'object' === typeof value ) {
+
 					if ( '[object Array]' === Object.prototype.toString.call( value ) ) {
-						this.currentValues   = value;
+
+						this.currentValues = value;
 
 						value.forEach( singleVal => {
-							this.pushToSelected( singleVal );
+							this.pushToSelected( singleVal, true );
 						} );
 
 					} else {
 						this.currentValues = [ value ];
-						this.pushToSelected( value );
+						this.pushToSelected( value, true );
 					}
 				} else {
 					this.currentValues = [ value ];
-					this.pushToSelected( value );
+					this.pushToSelected( value, true );
 				}
 
 			}

@@ -36,6 +36,31 @@
 				background: $color__accent-hover;
 			}
 		}
+		&-link-accent {
+			color: $color__accent;
+			background: none;
+			box-shadow: none;
+			path {
+				fill: $color__accent;
+			}
+			&:hover {
+				color: $color__accent-hover;
+				path {
+					fill: $color__accent-hover;
+				}
+			}
+		}
+		&-link-error {
+			color: $color__error;
+			background: none;
+			box-shadow: none;
+			path {
+				fill: $color__error;
+			}
+			&:hover {
+				color: $color__error;
+			}
+		}
 	}
 	&--size {
 		&-default {
@@ -48,6 +73,18 @@
 				}
 				span + .dashicons {
 					margin: -8px 0 0 5px;
+				}
+			}
+		}
+		&-link {
+			font-size: 15px;
+			line-height: 18px;
+			.cx-vui-button__content {
+				svg {
+					margin: 0 5px 1px 0;
+				}
+				span + svg {
+					margin: 0 0 1px 5px;
 				}
 			}
 		}
@@ -94,5 +131,8 @@
 				transform:rotate(360deg);
 			}
 		}
+	}
+	&.fullwidth {
+		width: 100%;
 	}
 }

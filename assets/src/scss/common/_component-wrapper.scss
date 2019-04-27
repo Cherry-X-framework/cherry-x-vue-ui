@@ -1,6 +1,7 @@
 .cx-vui-component {
 	display: flex;
 	padding: 20px;
+	font-family: $font_family;
 	+ .cx-vui-component {
 		border-top: 1px solid $color__border-in-panel;
 	}

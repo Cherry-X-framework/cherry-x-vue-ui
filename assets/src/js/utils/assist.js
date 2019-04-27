@@ -1,7 +1,7 @@
 export function oneOf ( value, validList ) {
 
-	for (let i = 0; i < validList.length; i++) {
-		if (value == validList[i]) {
+	for ( let i = 0; i < validList.length; i++ ) {
+		if ( value == validList[ i ] ) {
 			return true;
 		}
 	}
@@ -10,7 +10,7 @@ export function oneOf ( value, validList ) {
 
 }
 
-export function arraysEqual(arr1, arr2) {
+export function arraysEqual( arr1, arr2 ) {
 
 	if ( arr1.length !== arr2.length ) {
 		return false;

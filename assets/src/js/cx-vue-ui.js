@@ -4,6 +4,10 @@ import ComponentWrapper from './components/layout/component-wrapper';
 import Button from './components/layout/button';
 import Repeater from './components/layout/repeater';
 import RepeaterItem from './components/layout/repeater-item';
+import Popup from './components/layout/popup';
+import ListTable from './components/layout/list-table';
+import ListTableItem from './components/layout/list-table-item';
+import ListTableHeading from './components/layout/list-table-heading';
 
 import Input from './components/form/input';
 import Switcher from './components/form/switcher';
@@ -19,6 +23,10 @@ Vue.component( ComponentWrapper.name, ComponentWrapper );
 Vue.component( Button.name, Button );
 Vue.component( Repeater.name, Repeater );
 Vue.component( RepeaterItem.name, RepeaterItem );
+Vue.component( Popup.name, Popup );
+Vue.component( ListTable.name, ListTable );
+Vue.component( ListTableItem.name, ListTableItem );
+Vue.component( ListTableHeading.name, ListTableHeading );
 
 Vue.component( Input.name, Input );
 Vue.component( Switcher.name, Switcher );

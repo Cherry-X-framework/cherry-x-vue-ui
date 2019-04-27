@@ -14,13 +14,13 @@ const Button = {
 		},
 		buttonStyle: {
 			validator ( value ) {
-				return oneOf( value, [ 'default', 'accent' ] );
+				return oneOf( value, [ 'default', 'accent', 'link-accent', 'link-error' ] );
 			},
 			default: 'default'
 		},
 		size: {
 			validator ( value ) {
-				return oneOf( value, [ 'default', 'mini' ] );
+				return oneOf( value, [ 'default', 'mini', 'link' ] );
 			},
 			default: 'default'
 		},
@@ -108,6 +108,11 @@ const Button = {
 	},
 	methods: {
 		handleClick() {
+
+			if ( this.loading || this.disabled ) {
+				return;
+			}
+
 			this.$emit( 'click', event );
 		}
 	},

@@ -33,6 +33,20 @@ const ComponentWrapper = {
 			}
 		},
 	},
+	computed: {
+		wrapperClassesRaw() {
+
+			let classesList = [ 'cx-vui-component-raw' ];
+
+			if ( this.wrapperCss ) {
+				this.wrapperCss.forEach( className => {
+					classesList.push( className );
+				} );
+			}
+
+			return classesList;
+		}
+	}
 };
 
 export default ComponentWrapper;

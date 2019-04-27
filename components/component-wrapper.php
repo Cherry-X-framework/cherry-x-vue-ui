@@ -22,7 +22,7 @@
 	</div>
 </div>
 <div
-	class="cx-vui-component-raw"
+	:class="wrapperClassesRaw"
 	v-else-if="isVisible()"
 >
 	<slot></slot>

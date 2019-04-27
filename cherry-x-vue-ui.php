@@ -130,6 +130,10 @@ if ( ! class_exists( 'CX_Vue_UI' ) ) {
 				'button',
 				'repeater',
 				'repeater-item',
+				'popup',
+				'list-table',
+				'list-table-heading',
+				'list-table-item',
 
 				// Form elements
 				'input',
