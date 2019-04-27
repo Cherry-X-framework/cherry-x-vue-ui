@@ -20,14 +20,14 @@
 		</div>
 		<div class="cx-vui-popup__footer" v-if="footer">
 			<cx-vui-button
-				:size="'mini'"
-				@click="handleCancel"
-			><span slot="label">{{ cancelLabel }}</span></cx-vui-button>
-			<cx-vui-button
 				:button-style="'accent'"
 				:size="'mini'"
 				@click="handleOk"
 			><span slot="label">{{ okLabel }}</span></cx-vui-button>
+			<cx-vui-button
+				:size="'mini'"
+				@click="handleCancel"
+			><span slot="label">{{ cancelLabel }}</span></cx-vui-button>
 		</div>
 	</div>
 </div>

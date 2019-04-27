@@ -25,13 +25,12 @@
 		font-family: $font_family;
 		position: relative;
 		z-index: 2;
+		padding: 30px 40px 40px;
 	}
 	&__header {
-		border-bottom: 1px solid $color__border-in-panel;
-		padding: 12px 20px 8px;
+		padding: 0 0 10px;
 	}
 	&__content {
-		padding: 20px;
 		p {
 			font-size: 13px;
 			line-height: 20px;
@@ -41,10 +40,12 @@
 		}
 	}
 	&__footer {
-		border-top: 1px solid $color__border-in-panel;
-		padding: 20px;
+		padding: 20px 0 0;
 		display: flex;
-		justify-content: space-between;
+		align-items: center;
+		.cx-vui-button + .cx-vui-button {
+			margin: 0 0 0 10px;
+		}
 	}
 	&__close {
 		position: absolute;
