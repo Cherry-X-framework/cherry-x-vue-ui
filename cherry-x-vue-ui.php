@@ -137,6 +137,7 @@ if ( ! class_exists( 'CX_Vue_UI' ) ) {
 
 				// Form elements
 				'input',
+				'textarea',
 				'switcher',
 				'iconpicker',
 				'select',

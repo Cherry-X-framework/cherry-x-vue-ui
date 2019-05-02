@@ -10,6 +10,7 @@ import ListTableItem from './components/layout/list-table-item';
 import ListTableHeading from './components/layout/list-table-heading';
 
 import Input from './components/form/input';
+import Textarea from './components/form/textarea';
 import Switcher from './components/form/switcher';
 import Iconpicker from './components/form/iconpicker';
 import SelectPlain from './components/form/select';
@@ -29,6 +30,7 @@ Vue.component( ListTableItem.name, ListTableItem );
 Vue.component( ListTableHeading.name, ListTableHeading );
 
 Vue.component( Input.name, Input );
+Vue.component( Textarea.name, Textarea );
 Vue.component( Switcher.name, Switcher );
 Vue.component( Iconpicker.name, Iconpicker );
 Vue.component( SelectPlain.name, SelectPlain );

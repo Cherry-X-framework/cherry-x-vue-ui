@@ -1320,12 +1320,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_layout_list_table_item__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_layout_list_table_heading__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_form_input__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_form_switcher__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_form_iconpicker__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_form_select__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_form_f_select__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_form_checkbox__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_form_radio__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_form_textarea__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_form_switcher__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_form_iconpicker__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_form_select__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_form_f_select__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_form_checkbox__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_form_radio__ = __webpack_require__(23);
+
 
 
 
@@ -1357,12 +1359,13 @@ Vue.component(__WEBPACK_IMPORTED_MODULE_8__components_layout_list_table_item__["
 Vue.component(__WEBPACK_IMPORTED_MODULE_9__components_layout_list_table_heading__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_9__components_layout_list_table_heading__["a" /* default */]);
 
 Vue.component(__WEBPACK_IMPORTED_MODULE_10__components_form_input__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_10__components_form_input__["a" /* default */]);
-Vue.component(__WEBPACK_IMPORTED_MODULE_11__components_form_switcher__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_11__components_form_switcher__["a" /* default */]);
-Vue.component(__WEBPACK_IMPORTED_MODULE_12__components_form_iconpicker__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_12__components_form_iconpicker__["a" /* default */]);
-Vue.component(__WEBPACK_IMPORTED_MODULE_13__components_form_select__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_13__components_form_select__["a" /* default */]);
-Vue.component(__WEBPACK_IMPORTED_MODULE_14__components_form_f_select__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_14__components_form_f_select__["a" /* default */]);
-Vue.component(__WEBPACK_IMPORTED_MODULE_15__components_form_checkbox__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_15__components_form_checkbox__["a" /* default */]);
-Vue.component(__WEBPACK_IMPORTED_MODULE_16__components_form_radio__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_16__components_form_radio__["a" /* default */]);
+Vue.component(__WEBPACK_IMPORTED_MODULE_11__components_form_textarea__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_11__components_form_textarea__["a" /* default */]);
+Vue.component(__WEBPACK_IMPORTED_MODULE_12__components_form_switcher__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_12__components_form_switcher__["a" /* default */]);
+Vue.component(__WEBPACK_IMPORTED_MODULE_13__components_form_iconpicker__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_13__components_form_iconpicker__["a" /* default */]);
+Vue.component(__WEBPACK_IMPORTED_MODULE_14__components_form_select__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_14__components_form_select__["a" /* default */]);
+Vue.component(__WEBPACK_IMPORTED_MODULE_15__components_form_f_select__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_15__components_form_f_select__["a" /* default */]);
+Vue.component(__WEBPACK_IMPORTED_MODULE_16__components_form_checkbox__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_16__components_form_checkbox__["a" /* default */]);
+Vue.component(__WEBPACK_IMPORTED_MODULE_17__components_form_radio__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_17__components_form_radio__["a" /* default */]);
 
 /***/ }),
 /* 5 */
@@ -1792,6 +1795,10 @@ const Popup = {
 		cancelLabel: {
 			type: String,
 			default: 'Cancel'
+		},
+		bodyWidth: {
+			type: String,
+			default: 'auto'
 		}
 	},
 	data() {
@@ -3409,6 +3416,152 @@ const Radio = {
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (Radio);
+
+/***/ }),
+/* 24 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_assist__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_check_conditions__ = __webpack_require__(0);
+
+
+
+const Input = {
+
+	name: 'cx-vui-textarea',
+	template: '#cx-vui-textarea',
+	mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_check_conditions__["a" /* checkConditions */]],
+	props: {
+		value: {
+			type: [String, Number],
+			default: ''
+		},
+		size: {
+			validator(value) {
+				return Object(__WEBPACK_IMPORTED_MODULE_0__utils_assist__["b" /* oneOf */])(value, ['small', 'large', 'default', 'fullwidth']);
+			},
+			default: 'default'
+		},
+		placeholder: {
+			type: String,
+			default: ''
+		},
+		rows: {
+			type: Number
+		},
+		disabled: {
+			type: Boolean,
+			default: false
+		},
+		error: {
+			type: Boolean,
+			default: false
+		},
+		readonly: {
+			type: Boolean,
+			default: false
+		},
+		name: {
+			type: String
+		},
+		elementId: {
+			type: String
+		},
+		conditions: {
+			type: Array,
+			default: function () {
+				return [];
+			}
+		},
+		// Wrapper related props (should be passed into wrapper component)
+		preventWrap: {
+			type: Boolean,
+			default: false
+		},
+		label: {
+			type: String
+		},
+		description: {
+			type: String
+		},
+		wrapperCss: {
+			type: Array,
+			default: function () {
+				return [];
+			}
+		}
+	},
+	data() {
+		return {
+			currentValue: this.value,
+			currentId: this.elementId
+		};
+	},
+	watch: {
+		value(val) {
+			this.setCurrentValue(val);
+		}
+	},
+	mounted() {
+		if (!this.currentId && this.name) {
+			this.currentId = 'cx_' + this.name;
+		}
+	},
+	computed: {
+		controlClasses() {
+
+			var classesList = ['cx-vui-textarea'];
+
+			classesList.push('size-' + this.size);
+
+			if (this.error) {
+				classesList.push('has-error');
+			}
+
+			return classesList;
+		}
+	},
+	methods: {
+		handleEnter(event) {
+			this.$emit('on-enter', event);
+		},
+		handleKeydown(event) {
+			this.$emit('on-keydown', event);
+		},
+		handleKeypress(event) {
+			this.$emit('on-keypress', event);
+		},
+		handleKeyup(event) {
+			this.$emit('on-keyup', event);
+		},
+		handleFocus(event) {
+			this.$emit('on-focus', event);
+		},
+		handleBlur(event) {
+			this.$emit('on-blur', event);
+		},
+		handleInput(event) {
+			let value = event.target.value;
+			this.$emit('input', value);
+			this.setCurrentValue(value);
+			this.$emit('on-change', event);
+		},
+		handleChange(event) {
+			this.$emit('on-input-change', event);
+		},
+		setCurrentValue(value) {
+
+			if (value === this.currentValue) {
+				return;
+			}
+
+			this.currentValue = value;
+		}
+	}
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Input);
 
 /***/ })
 /******/ ]);

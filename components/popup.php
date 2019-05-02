@@ -4,7 +4,10 @@
 		v-if="overlay"
 		@click="handleCancel"
 	></div>
-	<div class="cx-vui-popup__body">
+	<div
+		class="cx-vui-popup__body"
+		:style="'width:' + bodyWidth"
+	>
 		<div
 			class="cx-vui-popup__close"
 			v-if="close"

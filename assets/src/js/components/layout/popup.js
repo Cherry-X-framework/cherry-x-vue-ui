@@ -30,6 +30,10 @@ const Popup = {
 			type: String,
 			default: 'Cancel',
 		},
+		bodyWidth: {
+			type: String,
+			default: 'auto',
+		},
 	},
 	data() {
 		return {
