@@ -104,13 +104,6 @@ if ( ! class_exists( 'CX_Vue_UI' ) ) {
 
 			add_action( 'admin_footer', array( $this, 'print_templates' ), 0 );
 
-			wp_enqueue_style(
-				'cx-vue-ui',
-				$this->url . 'assets/css/cx-vue-ui.css',
-				array(),
-				$this->version
-			);
-
 			$this->assets_enqueued = true;
 
 		}
