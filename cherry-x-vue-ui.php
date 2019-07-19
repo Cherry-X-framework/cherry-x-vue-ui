@@ -80,8 +80,6 @@ if ( ! class_exists( 'CX_Vue_UI' ) ) {
 				return;
 			}
 
-			$suffix = '.min';
-
 			if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 				$suffix = '';
 			}
@@ -96,7 +94,7 @@ if ( ! class_exists( 'CX_Vue_UI' ) ) {
 
 			wp_enqueue_script(
 				'cx-vue-ui',
-				$this->url . 'assets/js/cx-vue-ui' . $suffix . '.js',
+				$this->url . 'assets/js/cx-vue-ui.js',
 				array( 'cx-vue' ),
 				$this->version,
 				true
@@ -129,6 +127,7 @@ if ( ! class_exists( 'CX_Vue_UI' ) ) {
 				'list-table-item',
 				'tabs',
 				'tabs-panel',
+				'notice',
 
 				// Form elements
 				'input',
