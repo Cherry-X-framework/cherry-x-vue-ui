@@ -14,7 +14,7 @@ const config = {
 		filename: 'cx-vue-ui.js',
 		path: path.resolve( __dirname, 'assets/js' )
 	},
-	watch: isDevelopment ? true : false,
+	watch: true,
 	module: {
 		rules: [
 			{
