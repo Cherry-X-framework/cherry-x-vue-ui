@@ -33,12 +33,14 @@ const config = {
 					{
 						loader: 'postcss-loader',
 						options: {
-							plugins: [
-								() => {},
-								require('autoprefixer')({
-									browsers: ['last 2 versions']
-								})
-							]
+							plugins: function () {
+								return [
+									require('cssnano')({
+										autoprefixer: false,
+										safe: true
+									})
+								];
+							}
 						}
 					},
 					'sass-loader'
@@ -50,7 +52,7 @@ const config = {
 		minimizer: [
 			new UglifyJsPlugin({
 				test: /\.js(\?.*)?$/i,
-			}),
+			})
 		],
 	}
 };
