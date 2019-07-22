@@ -80,6 +80,8 @@ if ( ! class_exists( 'CX_Vue_UI' ) ) {
 				return;
 			}
 
+			$suffix = '.min';
+
 			if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 				$suffix = '';
 			}
