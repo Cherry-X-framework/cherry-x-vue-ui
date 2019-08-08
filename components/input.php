@@ -26,4 +26,5 @@
 		@input="handleInput"
 		@change="handleChange"
 	>
+	<slot></slot>
 </cx-vui-component-wrapper>
