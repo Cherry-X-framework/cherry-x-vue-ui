@@ -20,7 +20,26 @@ const Dimensions = {
 		units: {
 			type: Array,
 			default() {
-				return [ 'px', 'em', '%' ];
+				return [
+					{
+						unit: 'px',
+						min: false,
+						max: false,
+						step: false
+					},
+					{
+						unit: 'em',
+						min: false,
+						max: false,
+						step: false
+					},
+					{
+						unit: '%',
+						min: 0,
+						max: 100,
+						step: 1
+					}
+				];
 			}
 		},
 		size: {
@@ -102,6 +121,42 @@ const Dimensions = {
 				is_linked: this.isLink ? '1' : '0',
 				units: this.currentValue.units
 			}
+		},
+
+		min: function() {
+			let unitData = this.units.filter( ( obj ) => {
+				return obj.unit === this.currentValue.units;
+			} );
+
+			if ( 0 === unitData.length ) {
+				return false;
+			}
+
+			return unitData[0]['min'];
+		},
+
+		max: function() {
+			let unitData = this.units.filter( ( obj ) => {
+				return obj.unit === this.currentValue.units;
+			} );
+
+			if ( 0 === unitData.length ) {
+				return false;
+			}
+
+			return unitData[0]['max'];
+		},
+
+		step: function() {
+			let unitData = this.units.filter( ( obj ) => {
+				return obj.unit === this.currentValue.units;
+			} );
+
+			if ( 0 === unitData.length ) {
+				return false;
+			}
+
+			return unitData[0]['step'];
 		}
 	},
 	methods: {

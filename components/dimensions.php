@@ -12,11 +12,9 @@
 		<div class="cx-vui-dimensions__units">
 			<span
 				v-for="unit in units"
-				:class="{ active: unit === currentValue['units'] }"
-				@click="unitHandler(unit)"
-			>
-				{{ unit }}
-			</span>
+				:class="{ active: unit.unit === currentValue['units'] }"
+				@click="unitHandler(unit.unit)"
+			>{{ unit.unit }}</span>
 		</div>
 		<div class="cx-vui-dimensions__inputs">
 			<cx-vui-input
