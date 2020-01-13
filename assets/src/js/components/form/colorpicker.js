@@ -88,7 +88,7 @@ const Colorpicker = {
 
 			let colorValue = '';
 
-			switch( this.type ) {
+			switch ( this.type ) {
 				case 'rgba':
 					colorValue = `rgba(${ value.rgba.r },${ value.rgba.g },${ value.rgba.b },${ value.rgba.a })`;
 					break;
@@ -104,6 +104,10 @@ const Colorpicker = {
 				case 'hex8':
 					colorValue = value.hex8;
 					break;
+
+				default:
+					colorValue = false;
+				break;
 			}
 
 			if ( colorValue === this.currentValue ) {
@@ -125,7 +129,9 @@ const Colorpicker = {
 			}
 		},
 		clearColor() {
+			this.$emit( 'input', false );
 			this.currentValue = false;
+			this.$emit( 'on-change', false );
 		}
 	},
 };

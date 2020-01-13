@@ -22,6 +22,8 @@ import FilterableSelect from './components/form/f-select';
 import Checkbox from './components/form/checkbox';
 import Radio from './components/form/radio';
 import Colorpicker from './components/form/colorpicker';
+import WpMedia from './components/form/wp-media';
+import Dimensions from './components/form/dimensions';
 
 import './../scss/cx-vue-ui.scss';
 
@@ -48,5 +50,7 @@ Vue.component( FilterableSelect.name, FilterableSelect );
 Vue.component( Checkbox.name, Checkbox );
 Vue.component( Radio.name, Radio );
 Vue.component( Colorpicker.name, Colorpicker );
+Vue.component( WpMedia.name, WpMedia );
+Vue.component( Dimensions.name, Dimensions );
 
 Vue.prototype.$CXNotice = CXNotice;

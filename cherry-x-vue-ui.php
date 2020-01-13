@@ -80,6 +80,8 @@ if ( ! class_exists( 'CX_Vue_UI' ) ) {
 				return;
 			}
 
+			wp_enqueue_media();
+
 			$suffix = '.min';
 
 			if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
@@ -142,6 +144,8 @@ if ( ! class_exists( 'CX_Vue_UI' ) ) {
 				'checkbox',
 				'radio',
 				'colorpicker',
+				'wp-media',
+				'dimensions',
 			) );
 		}
 
