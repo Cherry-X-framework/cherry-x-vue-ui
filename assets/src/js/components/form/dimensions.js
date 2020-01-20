@@ -8,6 +8,7 @@ const Dimensions = {
 	mixins: [ checkConditions ],
 	props: {
 		value: {
+			type: Object,
 			default: {
 				'top': '',
 				'right': '',
@@ -43,7 +44,7 @@ const Dimensions = {
 			}
 		},
 		size: {
-			validator (value) {
+			validator ( value ) {
 				return oneOf( value, [ 'fullwidth', 'default' ] );
 			},
 			default: 'default'
@@ -113,13 +114,14 @@ const Dimensions = {
 		},
 
 		sanitizeValue: function() {
+
 			return {
-				top: this.currentValue.top,
-				right: this.currentValue.right,
-				bottom: this.currentValue.bottom,
-				left: this.currentValue.left,
+				top: this.currentValue.top || '',
+				right: this.currentValue.right || '',
+				bottom: this.currentValue.bottom || '',
+				left: this.currentValue.left || '',
 				is_linked: this.isLink ? '1' : '0',
-				units: this.currentValue.units
+				units: this.currentValue.units || 'px'
 			}
 		},
 
