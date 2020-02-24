@@ -24,15 +24,15 @@ const Dimensions = {
 				return [
 					{
 						unit: 'px',
-						min: false,
-						max: false,
-						step: false
+						min: -1000,
+						max: 1000,
+						step: 1
 					},
 					{
 						unit: 'em',
-						min: false,
-						max: false,
-						step: false
+						min: 0,
+						max: 10,
+						step: 0.1
 					},
 					{
 						unit: '%',
@@ -48,15 +48,6 @@ const Dimensions = {
 				return oneOf( value, [ 'fullwidth', 'default' ] );
 			},
 			default: 'default'
-		},
-		min: {
-			type: Number
-		},
-		max: {
-			type: Number
-		},
-		step: {
-			type: Number
 		},
 		disabled: {
 			type: Boolean,
