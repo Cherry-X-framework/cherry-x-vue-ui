@@ -13,8 +13,8 @@
 		<SlickList
 			class="cx-vui-media__attachments"
 			axis="xy"
-			distance="1"
-			hideSortableGhost="false"
+			:distance="1"
+			:hideSortableGhost="false"
 			@input="sortInput"
 			v-model="attachmentList"
 		>
