@@ -2,7 +2,7 @@
 /**
  * Vue.js based Interface Builder module
  *
- * Version: 1.0.6
+ * Version: 1.0.7
  */
 
 // If this file is called directly, abort.
@@ -42,8 +42,12 @@ if ( ! class_exists( 'CX_Vue_UI' ) ) {
 		 *
 		 * @var string
 		 */
-		protected $version = '1.0.6';
+		protected $version = '1.0.7';
 
+		/**
+		 * [$assets_enqueued description]
+		 * @var boolean
+		 */
 		protected $assets_enqueued = false;
 
 		/**

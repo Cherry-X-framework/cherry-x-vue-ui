@@ -23,4 +23,20 @@
 	&.size-fullwidth {
 		width: 100%;
 	}
+
+	&::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+		color: $color__input-placeholder;
+	}
+
+	&::-moz-placeholder { /* Firefox 19+ */
+		color: $color__input-placeholder;
+	}
+
+	&:-ms-input-placeholder { /* IE 10+ */
+		color: $color__input-placeholder;
+	}
+
+	&:-moz-placeholder { /* Firefox 18- */
+		color: $color__input-placeholder;
+	}
 }
