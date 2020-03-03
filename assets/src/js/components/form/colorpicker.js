@@ -80,7 +80,7 @@ const Colorpicker = {
 			return classesList;
 		},
 		isCloseVisible: function() {
-			return ! this.currentValue ? false : true;
+			return !this.currentValue ? false : true;
 		}
 	},
 	methods: {
@@ -106,7 +106,7 @@ const Colorpicker = {
 					break;
 
 				default:
-					colorValue = false;
+					colorValue = '';
 				break;
 			}
 
@@ -129,9 +129,9 @@ const Colorpicker = {
 			}
 		},
 		clearColor() {
-			this.$emit( 'input', false );
-			this.currentValue = false;
-			this.$emit( 'on-change', false );
+			this.$emit( 'input', '' );
+			this.currentValue = '';
+			this.$emit( 'on-change', '' );
 		}
 	},
 };
