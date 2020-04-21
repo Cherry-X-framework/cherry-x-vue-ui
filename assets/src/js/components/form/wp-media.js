@@ -13,6 +13,12 @@ const WpMedia = {
 			},
 			default: 'string'
 		},
+		returnData: {
+			validator ( value ) {
+				return oneOf( value, [ 'id', 'url' ] );
+			},
+			default: 'id'
+		},
 		mediaType: {
 			validator ( value ) {
 				return oneOf( value, [ 'image', 'video' ] );
@@ -138,7 +144,15 @@ const WpMedia = {
 		attachmentIdList: function() {
 
 			return this.attachmentList.map( ( item ) => {
-				return item.id;
+
+				switch( this.returnData ) {
+					case 'id':
+						return item.id;
+					break;
+					case 'url':
+						return item.url;
+					break;
+				}
 			} );
 		}
 	},
