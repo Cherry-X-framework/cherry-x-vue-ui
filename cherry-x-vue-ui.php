@@ -2,7 +2,7 @@
 /**
  * Vue.js based Interface Builder module
  *
- * Version: 1.0.9
+ * Version: 1.0.10
  */
 
 // If this file is called directly, abort.
@@ -140,6 +140,7 @@ if ( ! class_exists( 'CX_Vue_UI' ) ) {
 
 				// Form elements
 				'input',
+				'time',
 				'textarea',
 				'switcher',
 				'iconpicker',

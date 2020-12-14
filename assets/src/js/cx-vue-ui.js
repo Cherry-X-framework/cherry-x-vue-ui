@@ -15,6 +15,7 @@ import CXNotice from './components/layout/notice';
 
 import Input from './components/form/input';
 import Textarea from './components/form/textarea';
+import Time from './components/form/time';
 import Switcher from './components/form/switcher';
 import Iconpicker from './components/form/iconpicker';
 import SelectPlain from './components/form/select';
@@ -42,6 +43,7 @@ Vue.component( TabsPanel.name, TabsPanel );
 Vue.component( Pagination.name, Pagination );
 
 Vue.component( Input.name, Input );
+Vue.component( Time.name, Time );
 Vue.component( Textarea.name, Textarea );
 Vue.component( Switcher.name, Switcher );
 Vue.component( Iconpicker.name, Iconpicker );
