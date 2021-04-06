@@ -244,7 +244,7 @@ const FilterableSelect = {
 			}
 
 			let index     = this.optionInFocus + direction;
-			let maxLength = this.options.length - 1;
+			let maxLength = this.filteredOptions.length - 1;
 
 			if ( maxLength < 0 ) {
 				maxLength = 0;
@@ -307,7 +307,7 @@ const FilterableSelect = {
 				return;
 			}
 
-			let value = this.options[ this.optionInFocus ].value;
+			let value = this.filteredOptions[ this.optionInFocus ].value;
 
 			this.handleResultClick( value );
 
