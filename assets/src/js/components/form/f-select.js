@@ -280,7 +280,7 @@ const FilterableSelect = {
 				this.inFocus = true;
 			}
 
-			if ( this.remote && this.remoteCallback && this.charsDiff <= 0 && ! this.loading && ! this.loaded ) {
+			if ( this.remote && this.remoteCallback && this.charsDiff <= 0 && ! this.loading ) {
 
 				this.loading = true;
 
