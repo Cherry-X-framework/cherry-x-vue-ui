@@ -24,10 +24,22 @@
 			value=""
 			disabled
 		>{{ placeholder }}</option>
-		<option
-			v-for="option in options"
-			:value="option.value"
-			:selected="isOptionSelected( option )"
-		>{{ option.label }}</option>
+		<template v-if="groups.length">
+			<optgroup v-for="group in groups" :label="group.label">
+				<option
+					v-for="option in group.options"
+					:value="option.value"
+					:selected="isOptionSelected( option )"
+				>{{ option.label }}</option>
+			</optgroup>
+		</template>
+		<template v-else>
+			<option
+				v-for="option in options"
+				:value="option.value"
+				:selected="isOptionSelected( option )"
+			>{{ option.label }}</option>
+		</template>
 	</select>
+	<slot></slot>
 </cx-vui-component-wrapper>

@@ -46,9 +46,7 @@ const FilterableSelect = {
 			type: String
 		},
 		autocomplete: {
-			validator (value) {
-				return oneOf( value, ['on', 'off'] );
-			},
+			type: String,
 			default: 'off'
 		},
 		conditions: {
