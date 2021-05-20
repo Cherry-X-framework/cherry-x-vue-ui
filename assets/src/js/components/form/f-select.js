@@ -126,7 +126,7 @@ const FilterableSelect = {
 
 			}
 
-			this.storeValues( newValue );
+			this.setValues( newValue );
 
 		},
 		optionsList( options ) {
