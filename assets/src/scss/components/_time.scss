@@ -1,5 +1,18 @@
 @import '~vue2-timepicker/dist/VueTimepicker.css';
 
+//FIX: Dropdown select scroll in firefox
+.e--ua-firefox.wp-admin .cx-vui-time{
+	.dropdown{
+		.select-list{
+			ul{
+				li{
+					width: 60px;
+				}
+			}
+		}
+	}
+}
+
 .wp-admin .cx-vui-time {
 	height: auto;
 	-webkit-appearance:none;
