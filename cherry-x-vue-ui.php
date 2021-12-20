@@ -100,10 +100,51 @@ if ( ! class_exists( 'CX_Vue_UI' ) ) {
 				true
 			);
 
+			wp_register_script(
+				'cx-vue-components',
+				$this->url . 'assets/js/cx-vue-ui-components.js',
+				array(),
+				$this->version,
+				true
+			);
+
 			wp_enqueue_script(
 				'cx-vue-ui',
 				$this->url . 'assets/js/cx-vue-ui.js',
-				array( 'cx-vue' ),
+				array( 'cx-vue', 'cx-vue-components' ),
+				$this->version,
+				true
+			);
+
+			add_action( 'admin_footer', array( $this, 'print_templates' ), 0 );
+
+			$this->assets_enqueued = true;
+
+		}
+
+		/**
+		 * Enqueue builder assets
+		 *
+		 * @return void
+		 */
+		public function enqueue_assets_components() {
+
+			if ( $this->assets_enqueued ) {
+				return;
+			}
+
+			wp_enqueue_media();
+
+			$suffix = '.min';
+
+			if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
+				$suffix = '';
+			}
+
+			wp_enqueue_script(
+				'cx-vue-ui-components',
+				$this->url . 'assets/js/cx-vue-ui-components.js',
+				array(),
 				$this->version,
 				true
 			);

@@ -1,17 +1,18 @@
 const path = require('path');
 const glob = require('glob');
 const argv = require('yargs').argv;
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
 
 const isDevelopment = argv.mode === 'development';
 const distPath = path.join(__dirname, '/assets/js/');
 
 const config = {
 	entry: {
-		main: './assets/src/js/cx-vue-ui.js'
+		'cx-vue-ui': './assets/src/js/cx-vue-ui.js',
+		'cx-vue-ui-components': './assets/src/js/cx-vue-ui-components.js',
 	},
 	output: {
-		filename: 'cx-vue-ui.js',
+		filename: '[name].js',
 		path: path.resolve( __dirname, 'assets/js' )
 	},
 	watch: true,
@@ -33,14 +34,14 @@ const config = {
 					{
 						loader: 'postcss-loader',
 						options: {
-							plugins: function () {
-								return [
+							postcssOptions: {
+								plugins: [
 									require('cssnano')({
-										autoprefixer: false,
-										safe: true
-									})
-								];
-							}
+										preset: 'default',
+									}),
+								]
+							},
+
 						}
 					},
 					'sass-loader'
@@ -49,11 +50,8 @@ const config = {
 		]
 	},
 	optimization: {
-		minimizer: [
-			new UglifyJsPlugin({
-				test: /\.js(\?.*)?$/i,
-			})
-		],
+		minimize: true,
+		minimizer: [new TerserPlugin()],
 	}
 };
 
