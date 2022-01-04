@@ -30,28 +30,33 @@ const config = {
 				exclude: /node_modules/,
 				use: [
 					'style-loader',
-					'css-loader',
+					{
+						loader: 'css-loader',
+						options: {
+							importLoaders: 1,
+							modules: {
+								mode: 'icss',
+							},
+						}
+					},
+					'sass-loader',
 					{
 						loader: 'postcss-loader',
 						options: {
 							postcssOptions: {
-								plugins: [
-									require('cssnano')({
-										preset: 'default',
-									}),
-								]
-							},
 
+							},
 						}
 					},
-					'sass-loader'
 				]
 			}
 		]
 	},
 	optimization: {
 		minimize: true,
-		minimizer: [new TerserPlugin()],
+		minimizer: [
+			new TerserPlugin({} )
+		],
 	}
 };
 

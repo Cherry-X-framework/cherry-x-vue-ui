@@ -3,3 +3,4 @@ window.cxVueUi.registerGlobalComponents( Vue );
 
 // Register CherryX Global Extensions
 window.cxVueUi.registerGlobalExtensions();
+
