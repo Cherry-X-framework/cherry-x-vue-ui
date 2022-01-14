@@ -150,6 +150,7 @@ const SelectPlain = {
 		},
 		handleInput() {
 			this.$emit( 'input', this.currentValue );
+			this.$emit( 'on-input', this.currentValue );
 			this.$emit( 'on-change', event );
 		},
 		storeCurrentValue( value ) {

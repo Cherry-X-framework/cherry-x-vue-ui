@@ -319,6 +319,7 @@ const FilterableSelect = {
 			}
 
 			this.$emit( 'input', this.currentValues );
+			this.$emit( 'on-input', this.currentValues );
 			this.$emit( 'on-change', this.currentValues );
 
 			this.inFocus       = false;
