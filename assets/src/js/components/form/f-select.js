@@ -7,7 +7,9 @@ const FilterableSelect = {
 	name: 'cx-vui-f-select',
 	template: '#cx-vui-f-select',
 	mixins: [ checkConditions ],
-	directives: { clickOutside },
+	directives: {
+		clickOutside
+	},
 	props: {
 		value: {
 			type: [String, Number, Array],
@@ -117,13 +119,11 @@ const FilterableSelect = {
 				if ( arraysEqual( newValue, oldValue ) ) {
 					return;
 				}
-
 			} else {
 
 				if ( newValue === oldValue ) {
 					return;
 				}
-
 			}
 
 			this.storeValues( newValue );
@@ -369,12 +369,18 @@ const FilterableSelect = {
 
 					if ( '[object Array]' === Object.prototype.toString.call( value ) ) {
 
-						value.forEach( singleVal => {
-							if ( ! oneOf( singleVal, this.currentValues ) ) {
-								this.currentValues.push( singleVal );
-								this.pushToSelected( singleVal );
-							}
-						} );
+						if ( value.length ) {
+							value.forEach( singleVal => {
+								if ( ! oneOf( singleVal, this.currentValues ) ) {
+									console.log(singleVal)
+									this.currentValues.push( singleVal );
+									this.pushToSelected( singleVal );
+								}
+							} );
+						} else {
+							this.selectedOptions = [];
+							this.currentValues   = [];
+						}
 
 					} else {
 
