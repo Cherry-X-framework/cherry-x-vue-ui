@@ -1,6 +1,6 @@
 import { oneOf, arraysEqual } from '../../utils/assist';
+import { clickOutsideDirective as clickOutside } from '../../utils/v-click-outside';
 import { checkConditions } from '../../mixins/check-conditions';
-import { directive as clickOutside } from 'v-click-outside-x';
 
 const FilterableSelect = {
 
