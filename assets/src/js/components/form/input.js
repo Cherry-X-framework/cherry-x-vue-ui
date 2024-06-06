@@ -139,12 +139,20 @@ const Input = {
 		},
 		handleBlur ( event ) {
 			this.$emit( 'on-blur', event );
+			this.$emit( 'on-blur-validation', this.currentValue, this.inputBlurValidation );
 		},
 		handleInput ( event ) {
 			let value = event.target.value;
 			this.$emit( 'input', value );
 			this.setCurrentValue( value );
+			this.$emit( 'input-validation', value, this.inputValidation );
 			this.$emit( 'on-change', event );
+		},
+		inputValidation ( value ) {
+			this.setCurrentValue( value );
+		},
+		inputBlurValidation ( value ) {
+			this.setCurrentValue( value );
 		},
 		handleChange ( event ) {
 			this.$emit( 'on-input-change', event );

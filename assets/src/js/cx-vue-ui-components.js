@@ -1,4 +1,5 @@
 import ComponentWrapper from './components/layout/component-wrapper';
+import Alert from './components/layout/alert';
 import Title from './components/layout/title';
 import Collapse from './components/layout/collapse';
 import Button from './components/layout/button';
@@ -33,6 +34,7 @@ const cxVueUiClass = class{
 	constructor() {
 		this.components = {
 			ComponentWrapper,
+			Alert,
 			Title,
 			Collapse,
 			Button,

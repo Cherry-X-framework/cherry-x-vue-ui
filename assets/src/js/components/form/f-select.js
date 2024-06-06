@@ -88,6 +88,10 @@ const FilterableSelect = {
 		label: {
 			type: String
 		},
+		selectedLabelInside: {
+			type: Boolean,
+			default: false
+		},
 		description: {
 			type: String
 		},
@@ -208,6 +212,12 @@ const FilterableSelect = {
 						this.loaded          = true;
 						this.loading         = false;
 
+						if ( true === this.selectedLabelInside ) {
+							if ( options.length ) {
+								this.query = options[0].label;
+							}
+						}
+
 						this.$emit( 'on-change-remote-options', options );
 					}
 				} );
@@ -227,6 +237,10 @@ const FilterableSelect = {
 		handleFocus( event ) {
 			this.inFocus = true;
 			this.$emit( 'on-focus', event );
+
+			if ( true === this.selectedLabelInside ) {
+				this.handleInput( event );
+			}
 		},
 		handleOptionsNav( event ) {
 
@@ -265,10 +279,24 @@ const FilterableSelect = {
 		onClickOutside( event ) {
 
 			if ( this.inFocus ) {
-				this.inFocus = false;
-				this.$emit( 'on-blur', event );
+				if ( true === this.selectedLabelInside ) {
+					const selection    = window.getSelection();
+					const selectedText = selection.toString();
+
+					if ( selectedText.length === 0 ) {
+						this.inFocus = false;
+						this.$emit( 'on-blur', event );
+						this.$emit( 'on-blur-query', this.query, this.setQuery );
+					}
+				} else {
+					this.inFocus = false;
+					this.$emit( 'on-blur', event );
+				}
 			}
 
+		},
+		setQuery( query) {
+			this.query = query;
 		},
 		handleInput( event ) {
 
@@ -277,6 +305,7 @@ const FilterableSelect = {
 			this.query = value;
 
 			this.$emit( 'input', this.currentValues );
+			this.$emit( 'query-change', [ value, this.currentValues ] );
 			this.$emit( 'on-change', event );
 
 			if ( ! this.inFocus ) {
@@ -326,12 +355,23 @@ const FilterableSelect = {
 			}
 
 			this.$emit( 'input', this.currentValues );
+			this.$emit( 'query-change', [ this.query, this.currentValues ] );
 			this.$emit( 'on-input', this.currentValues );
 			this.$emit( 'on-change', this.currentValues );
 
+			if ( true === this.selectedLabelInside ) {
+				this.$emit( 'selected-options', this.selectedOptions );
+
+				if ( this.selectedOptions.length > 0 ) {
+					let label = this.selectedOptions[0].label;
+					this.query = label;
+				}
+			} else {
+				this.query = '';
+			}
+
 			this.inFocus       = false;
 			this.optionInFocus = false;
-			this.query         = '';
 
 			if ( this.remote && this.remoteCallback && this.loaded ) {
 				this.resetRemoteOptions();
